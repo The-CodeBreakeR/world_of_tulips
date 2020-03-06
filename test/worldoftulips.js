@@ -91,6 +91,7 @@ contract('WorldOfTulips2', function(accounts) {
     it("checking market operations", async () => {
         let world = await WorldOfTulips.deployed();
 
+        // It has been checked in the previous test scenario that the next four transactions can be made
         await world.digToFindBulb({from: accounts[2]});
         await world.plantBulb(1, {from: accounts[2]});
         await world.gatherDaughterBulbs(1, {from: accounts[2]});
