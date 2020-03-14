@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button } from 'semantic-ui-react'
+import { Modal, Button } from 'semantic-ui-react'
 import { GATEWAY, CONTRACT_ADDRESS, WORLD_OF_TULIPS_ABI } from './config'
 import LoggedOutHome from './LoggedOutHome'
 import LoggedInHome from './LoggedInHome'
@@ -13,7 +13,8 @@ class App extends Component {
             gateway: GATEWAY,
             contractAddress: CONTRACT_ADDRESS,
             loggedIn: false,
-            userAccount: ''
+            userAccount: '',
+            appModalOpen: false
         };
     }
 
@@ -24,6 +25,7 @@ class App extends Component {
             logIn={account => this.setState({
                 loggedIn: true,
                 userAccount: account,
+                appModalOpen: true
             })}
         />
         : <div>
@@ -34,6 +36,26 @@ class App extends Component {
                     userAccount: ''
                 })}
             />
+            <Modal size='tiny'
+                open={this.state.appModalOpen}
+                onClose={() => this.setState({appModalOpen: false})}
+                onOpen={() => this.setState({appModalOpen: true})}
+            >
+                <Modal.Header>Logged In Successfully!</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description>
+                        Account: {this.state.userAccount}
+                    </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button secondary
+                        onClick={() => {
+                        this.setState({appModalOpen: false})
+                        }}>
+                        Ok!
+                    </Button>
+                </Modal.Actions>
+            </Modal>
         </div>
     }
 }
