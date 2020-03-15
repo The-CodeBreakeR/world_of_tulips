@@ -12,9 +12,10 @@ class App extends Component {
         this.state = {
             gateway: GATEWAY,
             contractAddress: CONTRACT_ADDRESS,
+            contractAbi: WORLD_OF_TULIPS_ABI,
             loggedIn: false,
             userAccount: '',
-            appModalOpen: false
+            appModalOpen: false,
         };
     }
 
@@ -22,11 +23,17 @@ class App extends Component {
         return (!this.state.loggedIn)
         ? <LoggedOutHome
             gateway={this.state.gateway}
-            logIn={account => this.setState({
+            contractAddress={this.state.contractAddress}
+            contractAbi={this.state.contractAbi}
+            logIn={(smartContract, account) => this.setState({
                 loggedIn: true,
                 userAccount: account,
-                appModalOpen: true
+                appModalOpen: true,
+                worldOfTulips: smartContract
             })}
+            // setContract={smartContract => this.setState({
+            //     worldOfTulips: smartContract
+            // })}
         />
         : <div>
             <LoggedInHome
