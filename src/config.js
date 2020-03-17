@@ -1,4 +1,4 @@
-export const GATEWAY = 'GANACHE' // Either 'METAMASK' or 'GANACHE'
+export const GATEWAY = 'METAMASK' // Either 'METAMASK' or 'GANACHE'
 
 export const CONTRACT_ADDRESS = '0x52e3aEFA560dD8660F7b96433dF9bB97366FD724'
 

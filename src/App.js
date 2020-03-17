@@ -16,6 +16,7 @@ class App extends Component {
             loggedIn: false,
             userAccount: '',
             appModalOpen: false,
+            worldOfTulips: null
         };
     }
 
