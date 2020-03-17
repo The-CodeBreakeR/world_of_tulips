@@ -29,8 +29,8 @@ class App extends Component {
             logIn={(smartContract, account) => this.setState({
                 loggedIn: true,
                 userAccount: account,
-                appModalOpen: true,
-                worldOfTulips: smartContract
+                worldOfTulips: smartContract,
+                appModalOpen: true
             })}
             // setContract={smartContract => this.setState({
             //     worldOfTulips: smartContract
@@ -41,7 +41,8 @@ class App extends Component {
                 {...this.state}
                 logOut={() => this.setState({
                     loggedIn: false,
-                    userAccount: ''
+                    userAccount: '',
+                    worldOfTulips: null
                 })}
             />
             <Modal size='tiny'
