@@ -3,7 +3,6 @@ import AppHeader from './AppHeader'
 import AppMenu from './AppMenu'
 import AppFooter from './AppFooter'
 
-
 class LoggedInHome extends Component {
 
     render() {
