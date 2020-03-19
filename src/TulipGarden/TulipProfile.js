@@ -19,7 +19,7 @@ class TulipProfile extends Component{
 		const {isOpen} = this.state
 
         return <div>
-         	<Button onClick={this.show}>Get Tulip</Button>
+         	<Button onClick={this.show}>Show Info</Button>
 
 			<Modal size='mini' open={isOpen} onClose={this.close}>
          		<Modal.Header>Tulip Information</Modal.Header>
