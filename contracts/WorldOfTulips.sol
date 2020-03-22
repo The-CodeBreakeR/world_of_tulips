@@ -67,9 +67,12 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
 
     uint private tulipNum = 0;
     mapping (uint => Tulip) private tulips; // ID -> Tulip.
+    mapping (address => uint) private ownedTulips; // address -> total number of owned tulips and bulbs.
 
     uint private reqNum = 0;
+    uint private openReqNum = 0;
     mapping (uint => Request) private requests; // ID -> Request.
+    mapping (address => uint) private ownedOpenRequests; // address -> total number of owned open requests.
 
     uint[7] public reproductionTime = [
         1 hours, // For young tulips with low generation number.
@@ -117,12 +120,15 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
     function submitRequest(uint tulipID, uint price, uint deadline) public returns (uint requestID) {
         require(msg.sender == tulips[tulipID].owner);
 
+        ownedOpenRequests[msg.sender] += 1;
+
         Request memory request;
         request.requestMaker = msg.sender;
         request.tulipID = tulipID;
         request.price = price;
         request.deadline = deadline;
         reqNum += 1;
+        openReqNum += 1;
         request.ID = reqNum;
         request.isClosed = false;
 
@@ -137,6 +143,8 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
     // this function).
     function closeRequest(uint requestIdentifier) public {
         require(isRequestDefined(requestIdentifier) && msg.sender == requests[requestIdentifier].requestMaker);
+        ownedOpenRequests[tulips[requests[requestIdentifier].tulipID].owner] -= 1;
+        openReqNum -= 1;
         requests[requestIdentifier].isClosed = true;
     }
 
@@ -145,6 +153,8 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
         require(isRequestDefined(requestIdentifier) && !isRequestClosed(requestIdentifier)
             && now < requests[requestIdentifier].deadline && msg.value >= requests[requestIdentifier].price);
 
+        ownedOpenRequests[tulips[requests[requestIdentifier].tulipID].owner] -= 1;
+        openReqNum -= 1;
         requests[requestIdentifier].isClosed = true;
 
         Request memory request = requests[requestIdentifier];
@@ -154,11 +164,57 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
         }
         address(uint160(request.requestMaker)).transfer(request.price);
 
+        ownedTulips[tulips[request.tulipID].owner] -= 1;
+        ownedTulips[msg.sender] += 1;
         tulips[request.tulipID].owner = msg.sender;
 
         emit TulipBought(requestIdentifier, request.tulipID, request.requestMaker, msg.sender);
 
         return request.tulipID;
+    }
+
+    // Get all open request IDs owned by the given address.
+    function getAllOwnedOpenRequestIDs(address owner) external view returns (uint[] memory openRequestIDs) {
+        uint reqCount = ownedOpenRequests[owner];
+
+        if (reqCount == 0) {
+            return new uint[](0);
+        }
+        else {
+            uint[] memory result = new uint[](reqCount);
+            uint index = 0;
+
+            for (uint rID = 1; rID <= reqNum; rID += 1) {
+                if (!requests[rID].isClosed && tulips[requests[rID].tulipID].owner == owner) {
+                    result[index] = rID;
+                    index += 1;
+                }
+            }
+
+            return result;
+        }
+    }
+
+    // Get all open request IDs not owned by the given address.
+    function getOthersOpenRequestIDs(address owner) external view returns (uint[] memory openRequestIDs) {
+        uint reqCount = openReqNum - ownedOpenRequests[owner];
+
+        if (reqCount == 0) {
+            return new uint[](0);
+        }
+        else {
+            uint[] memory result = new uint[](reqCount);
+            uint index = 0;
+
+            for (uint rID = 1; rID <= reqNum; rID += 1) {
+                if (!requests[rID].isClosed && tulips[requests[rID].tulipID].owner != owner) {
+                    result[index] = rID;
+                    index += 1;
+                }
+            }
+
+            return result;
+        }
     }
 
     // Returns a valid ID for a new tulip (bulb).
@@ -190,6 +246,7 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
             underGroundBulbNum -= 1;
 
             Tulip memory bulb;
+            ownedTulips[msg.sender] += 1;
             bulb.owner = msg.sender;
             bulb.ID = getIDForTulip();
             bulb.generation = 0;
@@ -254,6 +311,7 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
 
     // Gather bulbs produced by a tulip and update tulip's life stage (only the tulip owner can access this function).
     function gatherDaughterBulbs(uint tulipID) public returns (uint bulbID1, uint bulbID2) {
+        // TODO isReadyForHarvest???
         //require(isReadyForHarvest(tulipID));
         require(msg.sender == tulips[tulipID].owner);
 
@@ -283,6 +341,7 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
         Tulip memory mother = tulips[motherID];
 
         Tulip memory bulb;
+        ownedTulips[bulbOwner] += 1;
         bulb.owner = bulbOwner;
         bulb.ID = getIDForTulip();
         bulb.generation = mother.generation + 1;
@@ -302,6 +361,28 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
         emit DaughterBulbGathered(bulbOwner, bulb.ID);
 
         return bulb.ID;
+    }
+
+    // Get all tulip (or bulb) IDs owned by the given address.
+    function getAllOwnedTulipIDs(address owner) external view returns (uint[] memory tulipIDs) {
+        uint tulipCount = ownedTulips[owner];
+
+        if (tulipCount == 0) {
+            return new uint[](0);
+        }
+        else {
+            uint[] memory result = new uint[](tulipCount);
+            uint index = 0;
+
+            for (uint tID = 1; tID <= tulipNum; tID += 1) {
+                if (tulips[tID].owner == owner) {
+                    result[index] = tID;
+                    index += 1;
+                }
+            }
+
+            return result;
+        }
     }
 
     // Get next miracle block.

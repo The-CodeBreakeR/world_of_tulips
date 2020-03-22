@@ -132,6 +132,12 @@ contract('WorldOfTulips2', function(accounts) {
         }
         assert.ok(errorHappened1, "someone sent an offer to buy tulip without paying enough moeny and got through with it");
 
+        let reqsOfAcc2 = await world.getAllOwnedOpenRequestIDs(accounts[2]);
+        assert.equal(reqsOfAcc2.length, 1, "number of open requests owned by accounts[2] was not 1");
+
+        let reqsOfRest = await world.getOthersOpenRequestIDs(accounts[2]);
+        assert.equal(reqsOfRest.length, 0, "number of open requests owned by other than accounts[2] was not 0");
+
         let tx3 = await world.buyTulip(2, {from: accounts[3], value: 20});
         assert.equal(tx3.logs.length, 1, "exactly one event should be emitted by buyTulip function");
         assert.equal(tx3.logs[0].event, "TulipBought", "the event wasn't as expected");
@@ -146,5 +152,10 @@ contract('WorldOfTulips2', function(accounts) {
         let tulip1 = await world.getTulip(1);
         assert.equal(tulip1[0], accounts[3], "the tulip owner was not accounts[3]");
 
+        let tulipsOfAcc2 = await world.getAllOwnedTulipIDs(accounts[2]);
+        assert.equal(tulipsOfAcc2.length, 3, "number of tulips owned by accounts[2] was not 3");
+
+        let tulipsOfAcc3 = await world.getAllOwnedTulipIDs(accounts[3]);
+        assert.equal(tulipsOfAcc3.length, 1, "number of tulips owned by accounts[3] was not 1");
     });
 });

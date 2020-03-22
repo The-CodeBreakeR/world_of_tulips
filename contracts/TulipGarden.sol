@@ -25,4 +25,7 @@ interface TulipGarden {
     // Gather bulbs, produced by a tulip (only the tulip owner can access this function).
     function gatherDaughterBulbs(uint tulipID) external returns (uint bulbID1, uint bulbID2);
 
+    // Get all tulip (or bulb) IDs owned by the given address.
+    function getAllOwnedTulipIDs(address owner) external view returns (uint[] memory tulipIDs);
+
 }
