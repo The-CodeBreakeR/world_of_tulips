@@ -3,19 +3,18 @@ import { Form, Modal, Button, FormGroup } from 'semantic-ui-react'
 
 // fill options with account owned Tulips
 
-// const options = [
-//     {key:1, text: "Tulip 1", value: "Tulip ID1"},
-//     {key:2, text: "Tulip 2", value: "Tulip ID2"},
-// ]
+const options = [
+    {key:1, text: "Tulip 1", value: "Tulip ID1"},
+    {key:2, text: "Tulip 2", value: "Tulip ID2"},
+]
 
 
 class MarketList extends Component {
 
     constructor(props){
         super(props);
-        this.loadTulips();
         //this.submitRequest = this.sumbitRequest.bind(this);
-        this.state = { tulips = [], value : "", price: null, deadline: null, errormess: ""}
+        this.state = { value : "", price: null, deadline: null, errormess: ""}
         }
     
 
