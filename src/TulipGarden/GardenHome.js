@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import TulipView from "./TulipView"
+import Tulip from "./Tulip"
+import '../css/garden.css'
 
 class GardenHome extends Component {
-
-  // TODO: set state after function callbacks
 
 	constructor(props){
 		super(props);
@@ -55,10 +55,16 @@ class GardenHome extends Component {
 
   render() {
     return <div>
+    <div className='container'>
+    {this.state.loading ? ('Loading...') : (<Tulip {...this.props} tulip = {this.state.tulips[0]} />)} 
+    </div>
+    <div>
     <p> Overall Number of Bulbs: {this.state.num} </p>
     <Button onClick={this.digBulb} content='Dig for Tulip'/>
     {this.state.loading ? ('Loading...') : (<TulipView {...this.props} tulips = {this.state.tulips} />)} 
     </div>
+    </div>
+
   }
 }
 
