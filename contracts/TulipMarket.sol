@@ -23,4 +23,10 @@ interface TulipMarket {
     // By sending the identifier of a request, and the required money, one can buy the proposed tulip.
     function buyTulip(uint requestIdentifier) external payable returns (uint tulipID);
 
+    // Get all open request IDs owned by the given address.
+    function getAllOwnedOpenRequestIDs(address owner) external view returns (uint[] memory openRequestIDs);
+
+    // Get all open request IDs not owned by the given address.
+    function getOthersOpenRequestIDs(address owner) external view returns (uint[] memory openRequestIDs);
+
 }
