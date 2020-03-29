@@ -1,0 +1,131 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+.blueSky{
+width: 100%;
+height: 480px;
+background-image: -webkit-linear-gradient(top,rgb(111, 176, 226),rgb(255,255,255));
+position: relative;
+}
+.grassLand{
+width: 100%;
+height: 400px;
+background-image: -webkit-linear-gradient(top,rgb(255,255,255),rgb(129, 206, 78));
+}
+.cloud1{
+width: 103px;
+height: 30px;
+background-color: #fff;
+border: 1px solid #fff;
+border-radius: 50%;
+position: absolute;
+left: 40%;
+top:10%;
+animation:cloud1 18s infinite linear;
+}
+.cloud2{
+width: 103px;
+height: 30px;
+background-color: #fff;
+border: 1px solid #fff;
+border-radius: 50%;
+position: absolute;
+left: 5%;
+top:15%;
+animation:cloud2 12s infinite linear;
+}
+.cloud3{
+width: 103px;
+height: 30px;
+background-color: #fff;
+border: 1px solid #fff;
+border-radius: 50%;
+position: absolute;
+left: 30%;
+top:12%;
+animation:cloud3 8s infinite linear;
+}
+.cloud4{
+width: 103px;
+height: 30px;
+background-color: #fff;
+border: 1px solid #fff;
+border-radius: 50%;
+position: absolute;
+left: 10%;
+top:5%;
+animation:cloud4 22s infinite linear;
+}
+.sun {
+position: absolute;
+right: 10%;
+bottom:50%;
+margin: 15em auto 0;
+width: 10em;
+height: 10em;
+background: -webkit-linear-gradient(top left, #fc0 0%, #a48039 100%);
+background: linear-gradient(to bottom right, #fc0 0%, #a48039 100%);
+-webkit-animation: rotate 10s linear infinite;
+animation: sun 10s linear infinite;
+z-index: 2;
+}
+.sun:before,
+.sun:after {
+content: '';
+display: block;
+position: absolute;
+}
+.sun:before {
+width: 100%;
+height: 100%;
+background: -webkit-linear-gradient(left, #e6b346 49%, #a48039 51%);
+background: linear-gradient(to right, #e6b346 49%, #a48039 51%);
+-webkit-transform: rotate(45deg);
+transform: rotate(45deg);
+}
+.sun:after {
+width: 108%;
+height: 108%;
+top: -4%;
+left: -4%;
+border-radius: 50%;
+background: #f9e364;
+}
+
+@keyframes cloud1 {
+    0% {left:55%;}
+	25% {left:45%;}
+	50% {left:55%;}
+	75% {left:45%;}
+	100% {left:55%;}
+}
+
+@keyframes cloud2 {
+    0% {left:5%;}
+	25% {left:10%;}
+	50% {left:5%;}
+	75% {left:10%;}
+	100% {left:5%;}
+}
+
+@keyframes cloud3 {
+    0% {left:30%;}
+	25% {left:37%;}
+	50% {left:30%;}
+	75% {left:37%;}
+	100% {left:30%;}
+}
+
+@keyframes cloud4 {
+    0% {left:20%;}
+	25% {left:10%;}
+	50% {left:20%;}
+	75% {left:10%;}
+	100% {left:20%;}
+}
+@keyframes sun {
+	0% {transform: rotate(0);left:1000px;}
+	100% {transform: rotate(360deg);left:1000px;}
+}
+
