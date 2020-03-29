@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import TulipView from "./TulipView"
+import '../css/tulip.css'
+
 import Tulip from "./Tulip"
-import '../css/garden.css'
+import GardenView from "./GardenView"
 
 class GardenHome extends Component {
 
@@ -37,6 +39,15 @@ class GardenHome extends Component {
     this.setState ({loading: false})
   }
 
+  async getAllTulips(){
+    this.setState({loading: true});
+    const gasAmount = await this.props.worldOfTulips.methods.getAllOwnedTulipIDs(this.props.userAccount).estimateGas({from: this.props.userAccount});
+    var ownedTulips = await this.props.worldOfTulips.methods.getAllOwnedTulipIDs(this.props.userAccount).send({from: this.props.userAccount, gas: gasAmount}).then(this.setState ({loading: false}));
+    this.setState({
+      tulips: ownedTulips
+    });
+  } 
+
   async digBulb(){
     this.setState ({loading: true});
     const gasAmount = await this.props.worldOfTulips.methods.digToFindBulb().estimateGas({from: this.props.userAccount});
@@ -55,11 +66,9 @@ class GardenHome extends Component {
 
   render() {
     return <div>
-    <div className='container'>
-    {this.state.loading ? ('Loading...') : (<Tulip {...this.props} tulip = {this.state.tulips[0]} />)} 
-    </div>
-    <div>
     <p> Overall Number of Bulbs: {this.state.num} </p>
+    {this.state.loading ? ('Loading...') : (<GardenView {...this.props} tulips = {this.state.tulips} />)} 
+    <div>
     <Button onClick={this.digBulb} content='Dig for Tulip'/>
     {this.state.loading ? ('Loading...') : (<TulipView {...this.props} tulips = {this.state.tulips} />)} 
     </div>

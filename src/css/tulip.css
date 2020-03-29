@@ -1,12 +1,29 @@
-#position{
-	position:fixed;
-	bottom:180px;
-	left:25px;
+#position1{
+	position:absolute;
+	bottom:550px;
+	right:333px;
 }
+
+#position2{
+	position:absolute;
+	bottom:550px;
+	right:666px;
+}
+
+#position3{
+	position:absolute;
+	bottom:550px;
+	right:999px;
+}
+
 .tulip{
-  position:relative;
+  position:absolute;
   height:30px;
   width:30px;
+}
+
+.icon{
+	fill: #f9a018;
 }
 
 .triangle-centre{
@@ -58,9 +75,9 @@
 .trunk{
 	height: 65px; width: 5px;
 	background:#77b039;
-	left: 37px;top:105px;
-	position:absolute;
-	z-index:-2;
+	position: absolute; 
+	left: 15px;
+	bottom: -140px;
 	animation:trunk 2s infinite linear;
 }
 .left-branch{
@@ -99,12 +116,10 @@
 .vase{
 position:absolute;
    top:163px;
-   left:13px;
+   left:23px;
    height: 0; 
    width: 38px;
    border-top: 45px solid #faaa18;
-   border-left: 8px solid transparent;
-   border-right: 8px solid transparent;
 }
 .vase:before,.vase:after {
 	content: '';
