@@ -12,31 +12,9 @@ import { Grid, Card, Image,Button,Modal,Icon } from "semantic-ui-react"
 
 
 
-// async getBuyingRequestIDs(){
-//    var  buyReqIDs = await this.props.worldOfTulips.methods.getOtherOpenRequestIDs({from:this.props.useraccount}).call();
-//    this.setState({buyReqIDs:buyReqIDs}); 
-// }
-
-// var buyreqIds = [this.state.buyReqIDs];
-
-// var buyReqIDs = [1,2,3]
-
-// var requestSpecs = async id => {
-//     await this.props.worldOfTulips.methods.getRequest(id).call();
-// }
-
-// const tulipsfForSale = async () => {
-//     return Promise.all(buyReqIDs.map( id => requestSpecs(id)));
-// }
-
-// tulipsfForSale().then(data =>{
-//   console.log(data)
-// })
-
 // how to have function from above create an arraybelow
 
-
-const Tulips = [
+const tulipsForSale = [
   { TulipId: 1, price : 1,deadline:1},
   { TulipId: 2, price : 2,deadline:1},
   { TulipId: 3, price : 3,deadline:1},
@@ -45,29 +23,32 @@ const Tulips = [
 
 // populate below array with get tulip
 
-const tulip = [ { owner: "A", generation:0, mother:"No" },
+const Tulips = [ { owner: "A", generation:0, mother:"No" },
                  { owner: "B", generation:1, mother:"X" },
                  { owner: "C", generation:2, mother:"Y" },
                  { owner: "D", generation:3, mother:"Z" }, 
 
 ]
 
+// and make following array
+
+
+
 const TulipList = (props) => (
   <Grid colums={3} divided>
     {props.Tulips.map((Tulip) => (
       <Grid.Column width={5}>
-        <TulipListItem {...Tulip} key={Tulips.TulipId} />
+        <TulipListItem {...Tulip} key={tulipsForSale.TulipId} />
       </Grid.Column>
     ))}
   </Grid>
 );
 
-const show = () => this.setState({ isOpen: true })
-const close = () => this.setState({ isOpen: false })
 
 
-const TulipListItem = ({ TulipId, price,deadline,owner }) => (
+const TulipListItem = ({ TulipId, price,deadline,owner, generation }) => (
   <Card.Group>
+    <div class = "ui centered card">
     <Card color = "olive">
       <Card.Content>
         <Image src= {Tulipimage} />
@@ -77,41 +58,84 @@ const TulipListItem = ({ TulipId, price,deadline,owner }) => (
         <Card.Meta>
         </Card.Meta>
         <Card.Description>
+         generation: {generation} {"\n"}
          owner: {owner} {"\n"}
          price: {price} ETH {"\n"}
          deadline: {deadline}day(s) {"\n"}
         </Card.Description>
-        <Button basic color = 'green' onClick={() => {
-                        this.setState({isAvailabletosell: false})
-                        }}>
+        <Button basic color = 'green'>
             Buy This Tulip
         </Button>
-        <Button basic color = "yellow" onClick ={this.show}>
+        <Button basic color = "yellow" >
           Show Info 
         </Button>
       </Card.Content>
     </Card>
+    </div>
   </Card.Group>
 )
 
 class BuyTulip extends Component {
     constructor(props){
         super(props);
-        //this.getBuyingRequestIDs = this.getBuyingRequestIDs.bind(this);
         this.state = {
             buyReqIDs : [],
-            isOpen:false
+            isOpen:false,
+            tulipsForSale:[],
+            tulipInfo :[]
         }
+        this.tulipsForPurchase()
+    }
+
+    show = () => this.setState({ isOpen: true })
+    close = () => this.setState({ isOpen: false })
+
+
+    async getBuyingRequestIDs(){
+
+      var buyReqIDs = await this.props.worldOfTulips.methods.getOthersOpenRequestIDs(this.props.userAccount).call();
+      this.setState({buyReqIDs:buyReqIDs});
+      console.log(typeof(buyReqIDs))
 
     }
+
+    //this funcition gives ID, price and deadline of the card  
+
+    
+
+     async tulipsForPurchase() {
+      await this.getBuyingRequestIDs();
+      var tulipsForPurchase =[];
+      var tulipsForPurchase =  Promise.all(this.state.buyReqIDs.map(id => this.props.worldOfTulips.methods.getRequest(id).call()));
+      this.setState({tulipsForPurchase:tulipsForPurchase})
+      
+      
+      // var tulipIds = this.state.tulipsForPurchase.map(tulip => tulip[0])
+      // console.log(tulipIds)
+
+        
+      // var tulipInfo = Promise.all(tulipIds.map(id => this.props.worldOfTulips.getTulip(id).call()));
+      // this.setState({tulipInfo:tulipInfo});
+       };
+
+     
+    
+
+    // // tulipsfForSale().then(data =>{
+    // //   console.log(data)
+    // // })
+
+    
     render() {
       const {isOpen} = this.state
+
     return (
       <div>
         <h1> Buy Tulips around the world</h1>
         <div className="container-list">
-          <TulipList Tulips={Tulips} />
-        </div>
+          <p>tulips for sale: {this.state.buyReqIDs}</p>
+          <TulipList Tulips={tulipsForSale} />
+        {/*</div>
         <Modal size='mini' open={isOpen} onClose={this.close}>
          		<Modal.Header>Tulip Information</Modal.Header>
           		<Modal.Content>
@@ -131,8 +155,9 @@ class BuyTulip extends Component {
         				<Icon name='checkmark' /> Got it!
       				</Button>
           		</Modal.Actions>
-        	</Modal>
-      </div>
+                      </Modal>*/}
+                      </div>
+                      </div>
     )
   }
 }
