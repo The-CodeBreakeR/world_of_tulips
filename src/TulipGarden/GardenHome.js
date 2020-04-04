@@ -10,13 +10,18 @@ class GardenHome extends Component {
 
 	constructor(props){
 		super(props);
-    this.getAllTulips();
-    this.getBulbNumber();
   }
 
   componentDidMount(){
     this.digBulb = this.digBulb.bind(this);
-    this.getTulip = this.getTulip.bind(this);  
+    this.getTulip = this.getTulip.bind(this);
+    this.getAllTulips();
+    this.getBulbNumber();
+    this.interval = setInterval(() => this.getAllTulips(), 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   // Initialize the respective elements, state to indicate loading
@@ -25,6 +30,7 @@ class GardenHome extends Component {
   async getBulbNumber(){
     this.setState ({loading: true})
     var num = await this.props.worldOfTulips.methods.getUnderGroundBulbNum().call();
+    console.log(this.state.loading)
     this.setState({
       num : num,
       loading: false
