@@ -6,17 +6,20 @@ class Tulip extends Component{
 	
 	constructor(props){
 		super(props);
+		console.log(this.props.colors)
 	}
 
 	render(){
+
+		var colors = ['rgb(254, 136, 26)', ' rgb(254, 195, 213)',  'rgb(252, 235, 3)']
 		return <div>
 
 		<Popup 
 			trigger={<div id = {'position' + (this.props.number + 1).toString()} className="tulip">
-			<div className="triangle-centre"></div>
-			<div className="triangle-left"></div>
-			<div className="triangle-right"></div>
-			<div className="semi-circle"></div>
+			<div className="triangle-centre" style={{'borderBottom': '55px solid ' + colors[this.props.number]}}></div>
+			<div className="triangle-left" style={{'borderBottom': '50px solid ' + colors[this.props.number]}}></div>
+			<div className="triangle-right" style={{'borderBottom': '50px solid ' + colors[this.props.number]}}></div>
+			<div className="semi-circle" style={{'background': colors[this.props.number]}}></div>
             
 			<div className="head">
 			<div id="eye-1" className="eye"></div>

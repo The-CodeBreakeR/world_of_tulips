@@ -17,7 +17,7 @@ class GardenHome extends Component {
     this.getTulip = this.getTulip.bind(this);
     this.getAllTulips();
     this.getBulbNumber();
-    this.interval = setInterval(() => this.getAllTulips(), 5000);
+    // this.interval = setInterval(() => this.getAllTulips(), 5000);
   }
 
   componentWillUnmount() {
@@ -70,11 +70,13 @@ class GardenHome extends Component {
 
   render() {
     return <div>
-    <p> Overall Number of Bulbs: {this.state.num} </p>
+    <div className='container' style={{'position': 'relative'}}>
+      <p> Overall Number of Bulbs: {this.state.num} </p>
+      <Button className = 'right-button' onClick={this.digBulb} content='Dig for Tulip'/>
+    </div>
     {this.state.loading ? ('Loading...') : (<GardenView {...this.props} tulips = {this.state.tulips} />)} 
     <div>
-    <Button onClick={this.digBulb} content='Dig for Tulip'/>
-    {this.state.loading ? ('Loading...') : (<TulipView {...this.props} tulips = {this.state.tulips} />)} 
+    {this.state.loading ? ('Loading...') : (<TulipView {...this.props} tulips = {this.state.tulips}/>)} 
     </div>
     </div>
 
