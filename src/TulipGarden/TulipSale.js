@@ -34,35 +34,34 @@ class TulipProfile extends Component{
 		const {isOpen} = this.state
         return <div>
          	<Button onClick={this.show}>Sell Tulip</Button>
-
-			<Modal size='mini' open={isOpen} onClose={this.close}>
-         		<Modal.Header>Selling Information</Modal.Header>
-          		<Modal.Content>
-                <form id='sell-form' className="ui form" onSubmit={this.handleSubmit}>
-                  <div className="field">
-                    <label>Tulip ID</label>
-                    <input type="text" name="tulip-id" value={this.props.id}/>
-                  </div>
-                  <div className="field">
-                    <label>Price</label>
-                    <input type="text" name="price" placeholder = '1' onChange={this.handleChange}/>
-                  </div>
-                  <div className="field">
-                    <label>Deadline</label>
-                    <input type="text" name="deadline" placeholder = '100' onChange={this.handleChange}/>
-                  </div>
-                </form>
-          		</Modal.Content>
-          		<Modal.Actions>
-          		<Button color='red' negative onClick={() => {
-                        this.setState({isOpen: false})
-                        }}> Cancel
-              </Button>
-      				<Button color='green' positive form='sell-form'>
-        				<Icon name='checkmark' /> Submit Request!
-      				</Button>
-          		</Modal.Actions>
-        	</Modal>
+        			<Modal style={{'position':'relative'}}size='mini' open={isOpen} onClose={this.close}>
+                 		<Modal.Header>Sale Information</Modal.Header>
+                  		<Modal.Content>
+                        <form id='sell-form' className="ui form" onSubmit={this.handleSubmit}>
+                          <div className="field">
+                            <label>Tulip ID</label>
+                            <input type="text" name="tulip-id" value={this.props.id}/>
+                          </div>
+                          <div className="field">
+                            <label>Price</label>
+                            <input type="text" name="price" placeholder = '1' onChange={this.handleChange}/>
+                          </div>
+                          <div className="field">
+                            <label>Deadline</label>
+                            <input type="text" name="deadline" placeholder = '100' onChange={this.handleChange}/>
+                          </div>
+                        </form>
+                  		</Modal.Content>
+                  		<Modal.Actions>
+                  		<Button color='red' negative onClick={() => {
+                                this.setState({isOpen: false})
+                                }}> Cancel
+                      </Button>
+              				<Button color='green' positive form='sell-form'>
+                				<Icon name='checkmark' /> Submit Request!
+              				</Button>
+                  		</Modal.Actions>
+                	</Modal>
         </div>
     }
 } 
