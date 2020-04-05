@@ -27,7 +27,7 @@ body {
       overflow: hidden;
       position: relative;
       z-index: 1;
-      
+
     }
     .door-box.active {
       animation: flyIntoRoom 1s both;
@@ -123,6 +123,7 @@ body {
       font-size: 30px;
       border: 3px solid;
       border-radius: 2px;
+      font-family: 'Amita';
     }
     .door-btn {
       top: 140px; left: 0; right: 0;
@@ -131,6 +132,7 @@ body {
       font-size: 24px;
       color: #9dbce3;
       line-height: 36px;
+      font-family: 'Amita';
     }
     .door-in {
       width: 104px; height: 40px;
