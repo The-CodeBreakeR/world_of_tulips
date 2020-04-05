@@ -31,7 +31,7 @@ class GardenHome extends Component {
   }
 
   // Initialize the respective elements, state to indicate loading
-  state = { activeItem: 'Market', num: 0, tulips: [], tulip: 0, loading: true}
+  state = { activeItem: 'Market', num: 0, tulips: [], tulip: 0, loading: true, gardenView: true}
 
   async getBulbNumber(){
     this.setState ({loading: true})
@@ -53,6 +53,9 @@ class GardenHome extends Component {
           tulips:[...this.state.tulips, tulip]
         });
       }
+    if (this.state.tulips.length > 3){
+      this.setState({gardenView: false});
+    }
     this.setState({ loading: false });
   } 
 
@@ -79,6 +82,12 @@ class GardenHome extends Component {
 
   render() {
       var message = '';
+      var gardenView = null;
+
+      if (this.state.gardenView){
+        gardenView = <GardenView {...this.props} tulips = {this.state.tulips} />;
+      }
+
       if (this.state.gotBulb){
       message =
         <Message
@@ -93,7 +102,7 @@ class GardenHome extends Component {
       <p> Overall Number of Bulbs: {this.state.num} </p>
       <Button className = 'right-button' onClick={this.digBulb} content='Dig for Tulip'/>
     </div>
-    {this.state.loading ? ('Loading...') : (<GardenView {...this.props} tulips = {this.state.tulips} />)} 
+    {this.state.loading ? ('Loading...') : (gardenView) } 
     <div>
     {this.state.loading ? ('Loading...') : (<TulipView {...this.props} tulips = {this.state.tulips}/>)} 
     </div>
