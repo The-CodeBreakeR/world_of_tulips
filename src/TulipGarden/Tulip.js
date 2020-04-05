@@ -11,7 +11,7 @@ class Tulip extends Component{
 
 	render(){
 
-		var colors = ['rgb(254, 136, 26)', ' rgb(254, 195, 213)',  'rgb(252, 235, 3)']
+		var colors = ['rgb(254, 136, 26)', ' rgb(254, 195, 213)',  'rgb(252, 235, 3)', 'rgb(66, 179, 245)']
 		return <div>
 
 		<Popup 

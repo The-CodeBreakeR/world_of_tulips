@@ -35,8 +35,6 @@ class BuyTulip extends Component {
  //ask ali's help to handle confirm
 
       render() {
-      
-     
         
       const TulipList = (props) => (
       <Grid colums={3} divided>
