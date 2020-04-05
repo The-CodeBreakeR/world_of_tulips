@@ -32,10 +32,8 @@ class MarketHome extends Component
     }
 
     componentDidMount() {
-        this.showInfo();
-         // this.intervaltwo = setInterval(() => this.showInfo(),1000)
-         //  this.interval = setInterval(() =>  this.showBuyingInfo() , 1000);
-
+        this.intervaltwo = setInterval(() => this.showInfo(),1000)
+        //  this.interval = setInterval(() =>  this.showBuyingInfo() , 1000);
         }
 
     componentWillUnmount() {
