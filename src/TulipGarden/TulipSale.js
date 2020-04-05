@@ -44,11 +44,11 @@ class TulipProfile extends Component{
                           </div>
                           <div className="field">
                             <label>Price</label>
-                            <input type="text" name="price" placeholder = '1' onChange={this.handleChange}/>
+                            <input type="text" name="price" placeholder = '1' required="required" onChange={this.handleChange}/>
                           </div>
                           <div className="field">
                             <label>Deadline</label>
-                            <input type="text" name="deadline" placeholder = '100' onChange={this.handleChange}/>
+                            <input type="text" name="deadline" placeholder = '100' required="required" onChange={this.handleChange}/>
                           </div>
                         </form>
                   		</Modal.Content>
