@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Tulipimage from './images/Tulip.jpg'
 import { Grid, Card, Image,Button,Modal,Icon,Confirm } from "semantic-ui-react"
+import {ReactComponent as TulipIcon} from '../img/tulip.svg';
 
 //include image i array in Market Home myTulipsforSale in show info
 
@@ -15,7 +16,6 @@ class CloseRequest extends Component {
           isOpenConfirm:false,
           
         }
-   
         this.closeThisRequest = this.closeThisRequest.bind(this)
   }
 
@@ -38,6 +38,12 @@ class CloseRequest extends Component {
 
       render() {
       
+      var colors = ['rgb(254, 136, 26)', 'rgb(254, 195, 213)',  'rgb(252, 235, 3)', 'rgb(66, 179, 245)']
+      const TulipIconGrid = (props) => { 
+            return (
+          <TulipIcon fill={colors[props.i - 1]} width='250px' height='250px'/>
+      );}
+     
      
         
       const TulipList = (props) => (
@@ -60,7 +66,7 @@ class CloseRequest extends Component {
           <div className = "ui centered card">
           <Card color = "olive">
             <Card.Content>
-              <Image src= {Tulipimage} />
+              <TulipIconGrid i = {tulipID} />
               <Card.Header>
                 Tulip ID: {tulipID}
               </Card.Header>

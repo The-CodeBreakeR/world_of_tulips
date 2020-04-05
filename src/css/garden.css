@@ -1,9 +1,10 @@
 body{
-    padding: 0;
+    padding: 10px;
     margin: 0;
 }
 
 .blueSky{
+top:50px;
 width: 100%;
 height: 300px;
 background-image: -webkit-linear-gradient(top,rgb(111, 176, 226),rgb(255,255,255));
@@ -27,7 +28,7 @@ background-image: -webkit-linear-gradient(top,rgb(255,255,255),rgb(129, 206, 78)
 	animation:bcloud1 10s infinite linear;
 	position: absolute;
 	left: 40%;
-	top:10%;
+	top:20%;
 }
 
 .bcloud1:after{
@@ -53,7 +54,7 @@ background-image: -webkit-linear-gradient(top,rgb(255,255,255),rgb(129, 206, 78)
 	-webkit-border-radius: 200px 200px 200px 200px;
 	position: absolute;
 	left: 5%;
-	top:15%;
+	top:25%;
 	animation:bcloud2 12s infinite linear;
 }
 
@@ -79,7 +80,7 @@ background-image: -webkit-linear-gradient(top,rgb(255,255,255),rgb(129, 206, 78)
 	-moz-border-radius: 200px 200px 200px 200px;
 	-webkit-border-radius: 200px 200px 200px 200px;
 	position: absolute;
-	top: 20px;
+	top: 100px;
 	left: 45px;
 	animation:bcloud3 8s infinite linear;
 }
@@ -100,8 +101,9 @@ background-image: -webkit-linear-gradient(top,rgb(255,255,255),rgb(129, 206, 78)
 
 .sun {
 position: absolute;
-margin: 5em auto 0;
-top:0em;
+margin: 7em auto 0;
+top: 5em;
+right: 5em;
 width: 7em;
 height: 7em;
 background: -webkit-linear-gradient(top left, #fc0 0%, #a48039 100%);

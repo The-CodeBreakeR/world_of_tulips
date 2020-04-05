@@ -29,13 +29,11 @@ class MarketHome extends Component
         this.tulipsForSale = this.tulipsForSale.bind(this)
         this.getClosingRequestIds = this.getClosingRequestIds.bind(this)
         // this.getBuyingRequestIds = this.getBuyingRequestIds.bind(this)
-
     }
 
     componentDidMount() {
-         this.intervaltwo = setInterval(() => this.showInfo(),1000)
-         //  this.interval = setInterval(() =>  this.showBuyingInfo() , 1000);
-
+        this.intervaltwo = setInterval(() => this.showInfo(),1000)
+        //  this.interval = setInterval(() =>  this.showBuyingInfo() , 1000);
         }
 
     componentWillUnmount() {
