@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Tulipimage from './images/Tulip.jpg'
-import { Grid, Card, Image,Button,Modal,Icon } from "semantic-ui-react"
-import TulipProfileMarket from "./TulipProfileMarket"
+import { Grid, Card, Image,Button,Modal,Icon,Confirm } from "semantic-ui-react"
 
 //include image i array in Market Home myTulipsforSale in show info
 
@@ -12,7 +11,8 @@ class CloseRequest extends Component {
   constructor(props){
         super(props);
         this.state = {
-          isOpen:false
+          isOpen:false,
+          isOpenConfirm:false,
           
         }
    
@@ -20,22 +20,25 @@ class CloseRequest extends Component {
   }
 
   show = () => this.setState({ isOpen: true })
-	close = () => this.setState({ isOpen: false })
+  close = () => this.setState({ isOpen: false })
 
+  open = () => this.setState({isOpenConfirm:true})
+  shut = () => this.setState({isOpenConfirm:false})
+  
 
-  // componentWillReceiveProps(nextProps){
-  //   this.setState({totalTulip : nextProps.totalTulip})
-  // }
 
   async closeThisRequest(id){
     
     const gasAmount = await this.props.worldOfTulips.methods.closeRequest(id).estimateGas({from:this.props.userAccount});
     await this.props.worldOfTulips.methods.closeRequest(id).send({from:this.props.userAccount, gas:gasAmount});
+    console.log("thisiscalled")
   }
+
+ //ask ali's help to handle confirm
 
       render() {
       
-      
+     
         
       const TulipList = (props) => (
       <Grid colums={3} divided>
@@ -48,6 +51,7 @@ class CloseRequest extends Component {
       );
 
        const {isOpen} = this.state
+       const {isOpenConfirm} = this.state
 
 
       const TulipListItem = ({ tulipID, price,deadline,reqId,generation,stage,motherID,plantingTime,R,G,B}) => (
@@ -67,9 +71,14 @@ class CloseRequest extends Component {
                 price: {price} ETH {"\n"}
                 deadline: {deadline}day(s) {"\n"}
               </Card.Description>
-              <Button basic color = 'red' onClick = {this.closeThisRequest(Number(reqId))}>
-                CloseRequest
+              <Button basic color = 'red' onClick = {() => this.closeThisRequest(Number(reqId))}>
+                Close Request
               </Button>
+              {/* <Confirm
+                open = {this.state.isOpenConfirm}
+                OnCancel = {this.shut}
+                OnConfirm = {() => this.closeThisRequest(Number(reqId))}>
+              </Confirm> */}
               <Button basic color = "yellow" onClick = {this.show}>
                 Show Info 
               </Button>
@@ -78,7 +87,7 @@ class CloseRequest extends Component {
           		<Modal.Content>
                 <p>reqId: {reqId}</p>
             		<p>Generation: {generation} </p>
-            		<p>Colors: {R, G, B } </p>
+            		<p>R :{R}| G :{G} {"\n"}|B :{B} {"\n"} </p>
             		<p>Mother ID: {motherID} </p>
                 <p>stage: {stage}</p>
                 <p>plantingTime: {plantingTime}</p>

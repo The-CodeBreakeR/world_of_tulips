@@ -56,8 +56,8 @@ class MarketList extends Component {
             var arr = this.state.allOwnedTulips.length;
             var i;
             var options=[];
-            for(i = 1; i < arr+1; i++) {
-                options.push({key:i, text:"Tulip "+ i, value: i})
+            for(i = 1; i <= arr; i++) {
+                options.push({key:i, text:"Tulip "+ i, value: this.state.allOwnedTulips[i-1]})
            }
            this.setState({options:options})
            console.log(options)

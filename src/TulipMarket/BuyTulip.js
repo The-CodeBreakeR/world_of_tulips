@@ -1,148 +1,96 @@
 import React, { Component } from 'react'
 import Tulipimage from './images/Tulip.jpg'
-
-import { Grid, Card, Image,Button,Modal,Icon } from "semantic-ui-react"
-//include image in this array
-// make this array in constructor
-//get requestids from Ali's function
+import { Grid, Card, Image,Button,Modal,Icon,Confirm } from "semantic-ui-react"
+import Web3 from 'web3';
 
 
-//ask ali for the branch changes
-
-
-
-
-// how to have function from above create an arraybelow
-
-const tulipsForSale = [
-  { TulipId: 1, price : 1,deadline:1},
-  { TulipId: 2, price : 2,deadline:1},
-  { TulipId: 3, price : 3,deadline:1},
-  { TulipId: 4, price : 4,deadline:2},
-];
-
-// populate below array with get tulip
-
-const Tulips = [ { owner: "A", generation:0, mother:"No" },
-                 { owner: "B", generation:1, mother:"X" },
-                 { owner: "C", generation:2, mother:"Y" },
-                 { owner: "D", generation:3, mother:"Z" }, 
-
-]
-
-// and make following array
-
-
-
-const TulipList = (props) => (
-  <Grid colums={3} divided>
-    {props.Tulips.map((Tulip) => (
-      <Grid.Column width={5}>
-        <TulipListItem {...Tulip} key={tulipsForSale.TulipId} />
-      </Grid.Column>
-    ))}
-  </Grid>
-);
-
-
-
-const TulipListItem = ({ TulipId, price,deadline,owner, generation }) => (
-  <Card.Group>
-    <div class = "ui centered card">
-    <Card color = "olive">
-      <Card.Content>
-        <Image src= {Tulipimage} />
-        <Card.Header>
-          {TulipId}
-        </Card.Header>
-        <Card.Meta>
-        </Card.Meta>
-        <Card.Description>
-         generation: {generation} {"\n"}
-         owner: {owner} {"\n"}
-         price: {price} ETH {"\n"}
-         deadline: {deadline}day(s) {"\n"}
-        </Card.Description>
-        <Button basic color = 'green'>
-            Buy This Tulip
-        </Button>
-        <Button basic color = "yellow" >
-          Show Info 
-        </Button>
-      </Card.Content>
-    </Card>
-    </div>
-  </Card.Group>
-)
 
 class BuyTulip extends Component {
-    constructor(props){
+  
+  
+  constructor(props){
         super(props);
         this.state = {
-            buyReqIDs : [],
-            isOpen:false,
-            tulipsForSale:[],
-            tulipInfo :[]
+          isOpen:false,
+          isOpenConfirm:false,
         }
-        this.tulipsForPurchase()
-    }
+   
+        this.buyThisTulip = this.buyThisTulip.bind(this)
+  }
 
-    show = () => this.setState({ isOpen: true })
-    close = () => this.setState({ isOpen: false })
+  show = () => this.setState({ isOpen: true })
+  close = () => this.setState({ isOpen: false })
 
+  open = () => this.setState({isOpenConfirm:true})
+  shut = () => this.setState({isOpenConfirm:false})
+  
 
-    async getBuyingRequestIDs(){
-
-      var buyReqIDs = await this.props.worldOfTulips.methods.getOthersOpenRequestIDs(this.props.userAccount).call();
-      this.setState({buyReqIDs:buyReqIDs});
-      console.log(typeof(buyReqIDs))
-
-    }
-
-    //this funcition gives ID, price and deadline of the card  
-
+  async buyThisTulip(id,price){
     
+    const gasAmount = await this.props.worldOfTulips.methods.buyTulip(id).estimateGas({from:this.props.userAccount});
+    var TulipId = await this.props.worldOfTulips.methods.buyTulip(id, {from:this.props.userAccount, gas:gasAmount,value: Web3.utils.toWei(price,"ether") });
+    console.log("Tulip Bought" +{TulipId})
+  }
 
-     async tulipsForPurchase() {
-      await this.getBuyingRequestIDs();
-      var tulipsForPurchase =[];
-      var tulipsForPurchase =  Promise.all(this.state.buyReqIDs.map(id => this.props.worldOfTulips.methods.getRequest(id).call()));
-      this.setState({tulipsForPurchase:tulipsForPurchase})
+ //ask ali's help to handle confirm
+
+      render() {
       
-      
-      // var tulipIds = this.state.tulipsForPurchase.map(tulip => tulip[0])
-      // console.log(tulipIds)
-
-        
-      // var tulipInfo = Promise.all(tulipIds.map(id => this.props.worldOfTulips.getTulip(id).call()));
-      // this.setState({tulipInfo:tulipInfo});
-       };
-
      
-    
+        
+      const TulipList = (props) => (
+      <Grid colums={3} divided>
+      {this.props.totalTulipBuy.map((Tulip) => (
+        <Grid.Column width={5}>
+          <TulipListItem {...Tulip} key={Tulip.tulipID} />
+        </Grid.Column>
+      ))}
+      </Grid>
+      );
 
-    // // tulipsfForSale().then(data =>{
-    // //   console.log(data)
-    // // })
+       const {isOpen} = this.state
+       const {isOpenConfirm} = this.state
 
-    
-    render() {
-      const {isOpen} = this.state
 
-    return (
-      <div>
-        <h1> Buy Tulips around the world</h1>
-        <div className="container-list">
-          <p>tulips for sale: {this.state.buyReqIDs}</p>
-          <TulipList Tulips={tulipsForSale} />
-        {/*</div>
-        <Modal size='mini' open={isOpen} onClose={this.close}>
+      const TulipListItem = ({owner, tulipID, price,deadline,reqId,generation,stage,motherID,plantingTime,R,G,B}) => (
+      
+       <Card.Group>
+          <div className = "ui centered card">
+          <Card color = "olive">
+            <Card.Content>
+              <Image src= {Tulipimage} />
+              <Card.Header>
+                Tulip ID: {tulipID}
+              </Card.Header>
+              <Card.Meta>
+              </Card.Meta>
+              <Card.Description>
+                Owner: {owner} {"\n"}
+                ReqID : {reqId} {"\n"}
+                price: {price} ETH {"\n"}
+                deadline: {deadline}day(s) {"\n"}
+                Stage: {stage} {"\n"}
+              </Card.Description>
+              <Button basic color = 'green' onClick = {() =>this.buyThisTulip(Number(reqId),price)}>
+                Buy This Tulip
+              </Button>
+              {/* <Confirm
+                open = {this.state.isOpenConfirm}
+                OnCancel = {this.shut}
+                OnConfirm = {() => this.closeThisRequest(Number(reqId))}>
+              </Confirm> */}
+              <Button basic color = "yellow" onClick = {this.show}>
+                Show Info 
+              </Button>
+            <Modal size='mini' open={isOpen} onClose={this.close}>
          		<Modal.Header>Tulip Information</Modal.Header>
           		<Modal.Content>
-            		<p>Owner: {this.props.tulip.owner} </p>
-            		<p>Generation: {this.props.tulip.generation} </p>
-            		<p>Colors: {this.props.tulip.R, this.props.tulip.G, this.props.tulip.B } </p>
-            		<p>Mother ID: {this.props.tulip.mother} </p>
+                <p>reqId: {reqId}</p>
+            		<p>Generation: {generation} </p>
+            		<p>R :{R}| G :{G} {"\n"}|B :{B} {"\n"} </p>
+            		<p>Mother ID: {motherID} </p>
+                <p>stage: {stage}</p>
+                <p>plantingTime: {plantingTime}</p>
           		</Modal.Content>
           		<Modal.Actions>
 
@@ -155,9 +103,25 @@ class BuyTulip extends Component {
         				<Icon name='checkmark' /> Got it!
       				</Button>
           		</Modal.Actions>
-                      </Modal>*/}
-                      </div>
-                      </div>
+               </Modal>
+        
+
+            </Card.Content>
+          </Card>
+          </div>
+       </Card.Group>
+      )
+
+     
+
+    return (
+            <div>
+              <h1> Buy Tulips Around The World  </h1>
+              <div className="container-list">
+                <p>tulips for sale: {this.state.buyReqIDs}</p>
+                <TulipList Tulips={this.props.totalTulipBuy} />
+                            </div>
+                            </div>
     )
   }
 }
