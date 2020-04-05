@@ -6,7 +6,6 @@ class Tulip extends Component{
 	
 	constructor(props){
 		super(props);
-		console.log(this.props.colors)
 	}
 
 	render(){
