@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
-import { Modal, Icon, Button } from 'semantic-ui-react'
+import { Modal, Button } from 'semantic-ui-react'
 import TulipProfile from "./TulipProfile"
+import '../css/tulip.css'
+import {ReactComponent as Icon} from '../img/tulip.svg';
 
 
 class TulipView extends Component{
 	
 	constructor(props){
 		super(props);
-		console.log(this.props.tulips);
+		console.log(this.props.tulips)
 	}
 
 	render(){
-
+		const TulipIcon = () => { return (
+        	<Icon fill={'rgb(238,130,238,0.9)'} width='50px' height='50px'/>
+        );
+    };
 		return <div>
 			<table className="table">
 		        <thead id="tulipList">
@@ -27,7 +32,7 @@ class TulipView extends Component{
 			                return(
 			                    <tr key={key}>
 			                    <td>{key+1}</td>
-			                    <td><img src={require('../img/tulip_placeholder.png')} width='50px' height='50px'/></td>
+			                    <td><TulipIcon/></td>
 			                    <td>{tulip.generation}</td>
 			                    <td><TulipProfile tulip = {tulip}/></td>      
 			             	    </tr>
