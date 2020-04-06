@@ -36,7 +36,7 @@ class App extends Component {
             //     worldOfTulips: smartContract
             // })}
         />
-        : <div>
+        : <div >
             <LoggedInHome
                 {...this.state}
                 logOut={() => this.setState({
@@ -45,19 +45,20 @@ class App extends Component {
                     worldOfTulips: null
                 })}
             />
-            <Modal size='tiny' style={{'position':'relative'}}
+            <Modal   size='tiny'
                 open={this.state.appModalOpen}
                 onClose={() => this.setState({appModalOpen: false})}
                 onOpen={() => this.setState({appModalOpen: true})}
+                style={{ backgroundColor: "rgb(192,192,192,0.8)",'position': 'relative'}}
             >
-                <Modal.Header>Logged In Successfully!</Modal.Header>
-                <Modal.Content>
+                <Modal.Header style={{ backgroundColor: "rgb(192,192,192,0.8)"}}>Logged In Successfully!</Modal.Header>
+                <Modal.Content style={{ backgroundColor: "rgb(192,192,192,0.8)"}} >
                     <Modal.Description>
                         Account: {this.state.userAccount}
                     </Modal.Description>
                 </Modal.Content>
-                <Modal.Actions>
-                    <Button secondary
+                <Modal.Actions style={{ backgroundColor: "rgb(192,192,192,0.8)"}}>
+                    <Button color='green'
                         onClick={() => {
                         this.setState({appModalOpen: false})
                         }}>

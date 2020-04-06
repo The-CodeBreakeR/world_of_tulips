@@ -110,10 +110,10 @@ class GardenHome extends Component {
         />;}
         
     return <div>
-    <div className='container' style={{'position': 'relative'}}>
+    <div className='container' style={{'position': 'relative', padding: "40px 20px"}}>
       <p> {message} </p>
       <div style={{'float':'left'}}> Overall Number of Bulbs: {this.state.num} </div>
-      <Button style={{'float':'right'}} onClick={this.digBulb} content='Dig for Tulip'/>
+      <Button  color="brown" style={{'position': 'absolute', 'right':'30px'}} onClick={this.digBulb} content='Dig for Tulip'/>
     </div>
     {this.state.loading ? (<Loader/>) : (gardenView) } 
     <div>

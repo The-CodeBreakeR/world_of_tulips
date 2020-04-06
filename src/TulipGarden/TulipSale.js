@@ -33,10 +33,10 @@ class TulipProfile extends Component{
 	render() {
 		const {isOpen} = this.state
         return <div>
-         	<Button onClick={this.show}>Sell Tulip</Button>
-        			<Modal style={{'position':'relative'}}size='mini' open={isOpen} onClose={this.close}>
-                 		<Modal.Header>Sale Information</Modal.Header>
-                  		<Modal.Content>
+         	<Button color="blue" onClick={this.show}>Sell Tulip</Button>
+        			<Modal style={{'position':'relative', backgroundColor: "rgb(192,192,192,0.8)"}} size='mini' open={isOpen} onClose={this.close}>
+                 		<Modal.Header style={{ backgroundColor: "rgb(192,192,192,0.8)"}}>Sale Information</Modal.Header>
+                  		<Modal.Content style={{ backgroundColor: "rgb(192,192,192,0.8)"}}>
                         <form id='sell-form' className="ui form" onSubmit={this.handleSubmit}>
                           <div className="field">
                             <label>Tulip ID</label>
@@ -52,7 +52,7 @@ class TulipProfile extends Component{
                           </div>
                         </form>
                   		</Modal.Content>
-                  		<Modal.Actions>
+                  		<Modal.Actions style={{ backgroundColor: "rgb(192,192,192,0.8)"}}>
                   		<Button color='red' negative onClick={() => {
                                 this.setState({isOpen: false})
                                 }}> Cancel
