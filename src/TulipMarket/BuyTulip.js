@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import Tulipimage from './images/Tulip.jpg'
 import { Grid, Card, Image,Button,Modal,Icon,Confirm } from "semantic-ui-react"
 import Web3 from 'web3';
-
+import {ReactComponent as TulipIcon} from '../img/tulip.svg';
 
 
 class BuyTulip extends Component {
@@ -36,6 +35,12 @@ class BuyTulip extends Component {
 
       render() {
         
+      var colors = ['rgb(254, 136, 26)', 'rgb(254, 195, 213)',  'rgb(252, 235, 3)', 'rgb(66, 179, 245)']
+      const TulipIconGrid = (props) => { 
+            return (
+          <TulipIcon fill={colors[props.i - 1]} width='250px' height='250px'/>
+      );}  
+
       const TulipList = (props) => (
       <Grid colums={3} divided>
       {this.props.totalTulipBuy.map((Tulip) => (
@@ -53,10 +58,10 @@ class BuyTulip extends Component {
       const TulipListItem = ({owner, tulipID, price,deadline,reqId,generation,stage,motherID,plantingTime,R,G,B}) => (
       
        <Card.Group>
-          <div className = "ui centered card">
+          <div className = "box">
           <Card color = "olive">
             <Card.Content>
-              <Image src= {Tulipimage} />
+              <TulipIconGrid i = {tulipID} />>
               <Card.Header>
                 Tulip ID: {tulipID}
               </Card.Header>
@@ -115,9 +120,13 @@ class BuyTulip extends Component {
     return (
             <div>
               <h1> Buy Tulips Around The World  </h1>
-              <div className="container-list">
-                <p>tulips for sale: {this.state.buyReqIDs}</p>
+              <div> { this.props.totalTulipBuy.length>0 ?(
+              <div className="wrapper">
+                
                 <TulipList Tulips={this.props.totalTulipBuy} />
+                            </div>)
+                            :(<h2 class= "headertekst"> No Tulips For Sale Yet :(</h2>)}
+
                             </div>
                             </div>
     )

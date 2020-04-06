@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Tulipimage from './images/Tulip.jpg'
 import { Grid, Card, Image,Button,Modal,Icon,Confirm } from "semantic-ui-react"
 import {ReactComponent as TulipIcon} from '../img/tulip.svg';
 
@@ -63,7 +62,7 @@ class CloseRequest extends Component {
       const TulipListItem = ({ tulipID, price,deadline,reqId,generation,stage,motherID,plantingTime,R,G,B}) => (
       
        <Card.Group>
-          <div className = "ui centered card">
+          <div className = "box">
           <Card color = "olive">
             <Card.Content>
               <TulipIconGrid i = {tulipID} />
@@ -118,15 +117,24 @@ class CloseRequest extends Component {
        </Card.Group>
       )
 
+      
+
      
 
     return (
       <div>
+
         <h1> CloseRequest for your Tulips </h1>
-        <div className="container-list">
+        <div>{ this.props.totalTulip.length > 0 ?(
+        <div className="wrapper">
           {/* <p>tulips for sale: {this.state.buyReqIDs}</p> */}
           <TulipList Tulips={this.props.totalTulip} />
                       </div>
+        ) : (<h2>
+          No Tulips Put On Sale. Try Selling Tulips First.
+        </h2>
+        )}
+        </div>
                       </div>
     )
   }
