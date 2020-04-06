@@ -13,6 +13,7 @@ class TulipProfile extends Component{
 		};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.createDaughterBulbs = this.createDaughterBulbs.bind(this);
 	}
 
   show = () => this.setState({ isOpen: true })
@@ -30,8 +31,13 @@ class TulipProfile extends Component{
     console.log(requestID.events.RequestAdded.returnValues.requestID);
   }
 
+  async createDaughterBulbs(id){
+    const gasAmount = await this.props.worldOfTulips.methods.gatherDaughterBulbs(id).estimateGas({from: this.props.userAccount});
+    var daughterBulbs = await this.props.worldOfTulips.methods.gatherDaughterBulbs(id).send({from: this.props.userAccount, gas: gasAmount});
+  }
+
 	render() {
-		const {isOpen} = this.state
+		const {isOpen} = this.state;
         return <div>
          	<Button onClick={this.show}>Sell Tulip</Button>
         			<Modal style={{'position':'relative'}}size='mini' open={isOpen} onClose={this.close}>
@@ -62,6 +68,7 @@ class TulipProfile extends Component{
               				</Button>
                   		</Modal.Actions>
                 	</Modal>
+                  <Button onClick = {() => this.createDaughterBulbs(this.props.id)}> Generate daughter bulbs </Button>
         </div>
     }
 } 
