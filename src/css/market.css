@@ -5,9 +5,11 @@ body {
 .wrapper {
   display: grid;
   /*grid-template-columns: 100px 100px 100px;*/
-  grid-template-columns: 33% 33% 33%;
-  grid-gap: 30px;
+  grid-template-columns: 100% 0%  0%;
+  grid-gap: 100px;
  background-image: -webkit-linear-gradient(top,rgb(225,225,225),rgb(129, 206, 78));
+ margin: 0 auto;
+ align-items: center;
  /*background-color: rgba(129,206,78,0.8);*/
 }
   
@@ -16,10 +18,13 @@ body {
 .box {
   /*background-color: red;*/
   color: #fff;
+  justify-self: end;
+  align-self: center;
+
   
-  border-radius: 5px;
-  padding: 100px;
-  font-size: 150%;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 90%;
   background-image: -webkit-linear-gradient(left, 
   rgba(238,196,135,.5) 0%,
   rgba(243,207,154,.5) 3%,
@@ -158,9 +163,9 @@ rgba(243,207,154,.3) 100%),
   rgba(243,207,154,.3) 98%,
   rgba(243,207,154,.3) 100%);
 
-  background-color:rgba(33, 22, 0, 1);
+  background-color:rgb(21, 33, 0);
   /*box-shadow: 15px 20px rgba(90, 45, 12, .8);*/
-  box-shadow: 20px 20px 20px rgba(135, 67, 18, .8) inset, 20px 30px 20px rgba(90, 45, 12, .8);
+  box-shadow: 10px 20px 20px rgba(135, 67, 18, .8) inset, 10px 10px 20px rgba(90, 45, 12, .8);
 }
 
 .h {  
@@ -179,4 +184,4 @@ rgba(243,207,154,.3) 100%),
 /*rgba(90, 45, 12, .8)*/
 
 .box:hover {
-    transform: scale(1.15);
+    transform: scale(1.10);}

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import Tulipimage from './images/Tulip.jpg'
 import { Grid, Card, Image,Button,Modal,Icon,Confirm } from "semantic-ui-react"
 import Web3 from 'web3';
-
+import {ReactComponent as TulipIcon} from '../img/tulip.svg';
 
 
 class BuyTulip extends Component {
@@ -36,6 +35,12 @@ class BuyTulip extends Component {
 
       render() {
         
+      var colors = ['rgb(254, 136, 26)', 'rgb(254, 195, 213)',  'rgb(252, 235, 3)', 'rgb(66, 179, 245)']
+      const TulipIconGrid = (props) => { 
+            return (
+          <TulipIcon fill={colors[props.i - 1]} width='250px' height='250px'/>
+      );}  
+
       const TulipList = (props) => (
       <Grid colums={3} divided>
       {this.props.totalTulipBuy.map((Tulip) => (
@@ -54,9 +59,10 @@ class BuyTulip extends Component {
       
        <Card.Group>
           <div className = "ui centered card">
+          <div className = "box">
           <Card color = "olive">
             <Card.Content>
-              <Image src= {Tulipimage} />
+              <TulipIconGrid i = {tulipID} />>
               <Card.Header>
                 Tulip ID: {tulipID}
               </Card.Header>
@@ -69,7 +75,7 @@ class BuyTulip extends Component {
                 deadline: {deadline}day(s) {"\n"}
                 Stage: {stage} {"\n"}
               </Card.Description>
-              <Button basic color = 'green' onClick = {() =>this.buyThisTulip(Number(reqId),price)}>
+              <Button  color = 'green' onClick = {() =>this.buyThisTulip(Number(reqId),price)}>
                 Buy This Tulip
               </Button>
               {/* <Confirm
@@ -77,8 +83,8 @@ class BuyTulip extends Component {
                 OnCancel = {this.shut}
                 OnConfirm = {() => this.closeThisRequest(Number(reqId))}>
               </Confirm> */}
-              <Button basic color = "yellow" onClick = {this.show}>
-                Show Info 
+              <Button  color = "yellow" onClick = {this.show}>
+                 Show Info 
               </Button>
             <Modal size='mini' open={isOpen} onClose={this.close}>
          		<Modal.Header>Tulip Information</Modal.Header>
@@ -107,6 +113,7 @@ class BuyTulip extends Component {
             </Card.Content>
           </Card>
           </div>
+          </div>
        </Card.Group>
       )
 
@@ -114,10 +121,18 @@ class BuyTulip extends Component {
 
     return (
             <div>
-              <h1> Buy Tulips Around The World  </h1>
-              <div className="container-list">
-                <p>tulips for sale: {this.state.buyReqIDs}</p>
+              <h1 style={{display:'flex', justifyContent:"center", padding: "20px"}}> Buy Tulips Around The World  </h1>
+              <p></p>
+              <p></p>
+              <p></p>
+              <h3 style={{display:'flex', padding: "20px"}} > Total Tulips for sale: {this.props.totalTulipBuy.length}</h3>
+              <div> { this.props.totalTulipBuy.length>0 ?(
+              <div className="wrapper">
+                
                 <TulipList Tulips={this.props.totalTulipBuy} />
+                            </div>)
+                            :(<h2 style={{display:'flex', justifyContent:"center", padding: "20px"}}> No Tulips For Sale Yet :(</h2>)}
+
                             </div>
                             </div>
     )
