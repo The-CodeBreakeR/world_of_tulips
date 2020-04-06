@@ -36,20 +36,22 @@ class CloseRequest extends Component {
  //ask ali's help to handle confirm
 
       render() {
-      
-      var colors = ['rgb(254, 136, 26)', 'rgb(254, 195, 213)',  'rgb(252, 235, 3)', 'rgb(66, 179, 245)']
+            console.log(this.props.colors);
+
       const TulipIconGrid = (props) => { 
-            return (
-          <TulipIcon fill={colors[props.i - 1]} width='250px' height='250px'/>
-      );}
+        if (this.props.colors){
+            return (<TulipIcon fill={this.props.colors[props.i]} width='250px' height='250px'/>);
+          }else{
+            return (null);
+          }}
      
      
         
       const TulipList = (props) => (
       <Grid colums={3} divided>
-      {this.props.totalTulip.map((Tulip) => (
+      {this.props.totalTulip.map((Tulip, index) => (
         <Grid.Column width={5}>
-          <TulipListItem {...Tulip} key={Tulip.tulipID} />
+          <TulipListItem {...Tulip} key={Tulip.tulipID} index = {index} />
         </Grid.Column>
       ))}
       </Grid>
@@ -59,14 +61,14 @@ class CloseRequest extends Component {
       //  const {isOpenConfirm} = this.state
 
 
-      const TulipListItem = ({ tulipID, price,deadline,reqId,generation,stage,motherID,plantingTime,R,G,B}) => (
+      const TulipListItem = ({ tulipID, price,deadline,reqId,generation,stage,motherID,plantingTime,R,G,B,index}) => (
       
        <Card.Group>
           <div className = "ui centered card">
           <div className = "box">
           <Card color = "olive">
             <Card.Content>
-              <TulipIconGrid i = {tulipID} />
+              <TulipIconGrid i = {index} />
               <Card.Header>
                 Tulip ID: {tulipID}
               </Card.Header>

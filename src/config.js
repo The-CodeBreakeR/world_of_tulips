@@ -1,9 +1,9 @@
-export const GATEWAY = 'GANACHE' // Either 'METAMASK' or 'GANACHE'
+export const GATEWAY = 'METAMASK' // Either 'METAMASK' or 'GANACHE'
 
 export const CONTRACT_ADDRESS = '0x52e3aEFA560dD8660F7b96433dF9bB97366FD724'
 
 export const WORLD_OF_TULIPS_ABI = [
-  {
+    {
       "inputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -538,4 +538,4 @@ export const WORLD_OF_TULIPS_ABI = [
       "stateMutability": "nonpayable",
       "type": "function"
     }
-]
+  ]

@@ -45,7 +45,7 @@ class App extends Component {
                     worldOfTulips: null
                 })}
             />
-            <Modal size='tiny'
+            <Modal size='tiny' style={{'position':'relative'}}
                 open={this.state.appModalOpen}
                 onClose={() => this.setState({appModalOpen: false})}
                 onOpen={() => this.setState({appModalOpen: true})}

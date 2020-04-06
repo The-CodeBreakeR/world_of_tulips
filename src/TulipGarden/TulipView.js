@@ -12,13 +12,11 @@ class TulipView extends Component{
 	}
 
 	render(){
-		var colors = ['rgb(254, 136, 26)', 'rgb(254, 195, 213)',  'rgb(252, 235, 3)', 'rgb(66, 179, 245)']
 		const TulipIcon = (props) => { 
-						console.log(colors[props.i]);
 						return (
-        	<Icon fill={colors[props.i]} width='50px' height='50px'/>
-        );
-    };
+        	<Icon fill={this.props.colors[props.i]} width='50px' height='50px'/>
+        	);
+   		 };
 
 		return <div>
 		<div className="container">
@@ -35,10 +33,10 @@ class TulipView extends Component{
 			            {this.props.tulips.map((tulip, key)=>{
 			                return(
 			                    <tr key={key}>
-			                    <td>{key+1}</td>
+			                    <td>{this.props.tulipIDs[key]}</td>
 			                    <td><TulipIcon i = {key}/></td>
 			                    <td>{tulip.generation}</td>
-			                    <td><TulipSale {...this.props} tulip = {tulip} id = {key+1}/></td>      
+			                    <td><TulipSale {...this.props} tulip = {tulip} id = {this.props.tulipIDs[key]}/></td>      
 			             	    </tr>
 			                )
 			            })}
