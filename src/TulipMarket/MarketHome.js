@@ -109,6 +109,7 @@ class MarketHome extends Component
 
         console.log(myTulipsForSalearray)
         this.setState({totalTulip:myTulipsForSalearray})
+        this.getColors(false);
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,6 +181,7 @@ class MarketHome extends Component
 
         console.log(myTulipsForBuyingarray)
         this.setState({totalTulipBuy:myTulipsForBuyingarray})
+        this.getColors(true);
     }
 
 
@@ -193,19 +195,41 @@ class MarketHome extends Component
      return tulip
     }
 
+    getColors(buy){
+        var colorArray = [];
+        if (buy){
+            console.log(this.state.totalTulipBuy);
+            for (var i = 0; i < this.state.totalTulipBuy.length; i++){
+                var temp = 'rgb(' + this.state.totalTulipBuy[i].R + ',' + this.state.totalTulipBuy[i].G + ',' + this.state.totalTulipBuy[i].B + ')';
+                colorArray.push(temp);
+            };
+            this.setState({
+                colorsBuy: colorArray
+             });
+        }else{
+            for (var i = 0; i < this.state.totalTulip.length; i++){
+                var temp = 'rgb(' + this.state.totalTulip[i].R + ',' + this.state.totalTulip[i].G + ',' + this.state.totalTulip[i].B + ')';
+                colorArray.push(temp);
+            };
+            this.setState({
+                colors: colorArray
+             });
+        }
+    }
+
     render() {
 
         const panes = [
     {
         menuItem: "Let's Buy Tulips",
         render: () => <Tab.Pane attached = {false}>
-            <BuyTulip {...this.props} totalTulipBuy = {this.state.totalTulipBuy}/>
+            <BuyTulip {...this.props} totalTulipBuy = {this.state.totalTulipBuy} colors = {this.state.colorsBuy}/>
         </Tab.Pane>
     },
     {
         menuItem: " Close my Sale Request",
         render:() =><Tab.Pane attached = {false}>
-             <CloseRequest { ...this.props} totalTulip = {this.state.totalTulip}/>
+             <CloseRequest { ...this.props} totalTulip = {this.state.totalTulip} colors = {this.state.colors}/>
         </Tab.Pane>
     }
 

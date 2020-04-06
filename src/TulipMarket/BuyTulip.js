@@ -25,21 +25,19 @@ class BuyTulip extends Component {
   
 
   async buyThisTulip(id,price){
-    
-    const gasAmount = await this.props.worldOfTulips.methods.buyTulip(id).estimateGas({from:this.props.userAccount});
-    var TulipId = await this.props.worldOfTulips.methods.buyTulip(id, {from:this.props.userAccount, gas:gasAmount,value: Web3.utils.toWei(price,"ether") });
-    console.log("Tulip Bought" +{TulipId})
+     const gasAmount = await this.props.worldOfTulips.methods.buyTulip(id).estimateGas({from:this.props.userAccount, value:price});
+     var tulipId = await this.props.worldOfTulips.methods.buyTulip(id).send({from:this.props.userAccount, gas:gasAmount, value:price });
   }
 
  //ask ali's help to handle confirm
 
       render() {
-        
-      var colors = ['rgb(254, 136, 26)', 'rgb(254, 195, 213)',  'rgb(252, 235, 3)', 'rgb(66, 179, 245)']
       const TulipIconGrid = (props) => { 
-            return (
-          <TulipIcon fill={colors[props.i - 1]} width='250px' height='250px'/>
-      );}  
+        if (this.props.colors){
+            return (<TulipIcon fill={this.props.colors[props.i - 1]} width='250px' height='250px'/>);
+          }else{
+            return (null);
+          }}
 
       const TulipList = (props) => (
       <Grid colums={3} divided>
@@ -62,7 +60,7 @@ class BuyTulip extends Component {
           <div className = "box">
           <Card color = "olive">
             <Card.Content>
-              <TulipIconGrid i = {tulipID} />>
+              <TulipIconGrid i = {reqId} />>
               <Card.Header>
                 Tulip ID: {tulipID}
               </Card.Header>
