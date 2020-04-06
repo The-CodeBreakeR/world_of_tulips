@@ -69,7 +69,7 @@ class BuyTulip extends Component {
               <Card.Description>
                 Owner: {owner} {"\n"}
                 ReqID : {reqId} {"\n"}
-                price: {price} ETH {"\n"}
+                price: {price} wei {"\n"}
                 deadline: {deadline}day(s) {"\n"}
                 Stage: {stage} {"\n"}
               </Card.Description>
