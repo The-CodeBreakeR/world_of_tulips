@@ -235,10 +235,10 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
     // A random number generator function, used for testing.
     function randomGenerator() private returns (uint randomNumber) {
         demoRandomNumber += 1;
-        if(demoRandomNumber == 1) {return (256 * 256 * 26 + 256 * 136 + 254)* 1000 * 1000 * 10;}
-        if(demoRandomNumber == 2) {return (256 * 256 * 213 + 256 * 195 + 254)* 1000 * 1000 * 10;}
-        if(demoRandomNumber == 3) {return (256 * 256 * 2 + 256 * 254 + 243)* 1000 * 1000 * 10;}
-        if(demoRandomNumber == 4) {return (256 * 256 * 100 + 256 * 155 + 122)* 1000 * 1000 * 10;}
+        if(demoRandomNumber == 5) {return (256 * 256 * 26 + 256 * 136 + 254)* 1000 * 1000 * 10;}
+        if(demoRandomNumber == 6) {return (256 * 256 * 213 + 256 * 195 + 254)* 1000 * 1000 * 10;}
+        if(demoRandomNumber == 7) {return (256 * 256 * 2 + 256 * 254 + 243)* 1000 * 1000 * 10;}
+        if(demoRandomNumber == 8) {return (256 * 256 * 100 + 256 * 155 + 122)* 1000 * 1000 * 10;}
         return 0;
     }
 
