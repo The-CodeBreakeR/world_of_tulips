@@ -128,7 +128,7 @@ class MarketList extends Component {
                      placeholder='Select Tulip'
                     />
                 </Form.Group>
-                <Form.Button type = "submit" >Sell MyTulip</Form.Button>
+                <Form.Button  color="blue" type = "submit" >Sell MyTulip</Form.Button>
                 {this.state.errormess}
                 
                 <p>The current Tulip:{this.state.value} is at price {this.state.price} ETH</p>

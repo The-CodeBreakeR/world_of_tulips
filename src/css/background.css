@@ -1,2 +1,7 @@
-.modal-backdrop {
-    background-image: -webkit-linear-gradient(top,rgb(255,255,255),rgb(129, 206, 78));}
+.background {
+    width: 100%;
+    height: 100%;
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(250,252,70,1) 100%);
+}
+  

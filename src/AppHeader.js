@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import logoutbutton from './css/buttons.css'
-import './css/pageheader.css'
+
 
 class AppHeader extends Component {
 
     render() {
-        return <div className="pageheader">
+        return <div style={{'fontSize' : '20px'}}>
             <p>Account: {this.props.userAccount}</p>
+            <h2 style={{ padding: "10px 20px", textAlign: "center", color: "white"}}>
             <Button color='red'   className="logoutbutton"  onClick={() => this.props.logOut()}>
              LOG OUT
-            </Button>
+            </Button></h2>
         </div>
     }
 }

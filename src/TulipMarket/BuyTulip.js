@@ -80,9 +80,9 @@ class BuyTulip extends Component {
               <Button basic color = "yellow" onClick = {this.show}>
                 Show Info 
               </Button>
-            <Modal size='mini' open={isOpen} onClose={this.close}>
-         		<Modal.Header>Tulip Information</Modal.Header>
-          		<Modal.Content>
+            <Modal  style={{ backgroundColor: "rgb(192,192,192,0.8)",'position': 'relative'}} size='mini' open={isOpen} onClose={this.close}>
+         		<Modal.Header style={{ backgroundColor: "rgb(192,192,192,0.8)"}}>Tulip Information</Modal.Header>
+          		<Modal.Content style={{ backgroundColor: "rgb(192,192,192,0.8)"}} >
                 <p>reqId: {reqId}</p>
             		<p>Generation: {generation} </p>
             		<p>R :{R}| G :{G} {"\n"}|B :{B} {"\n"} </p>
