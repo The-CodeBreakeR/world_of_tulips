@@ -3,7 +3,7 @@ import { Modal, Button } from 'semantic-ui-react'
 import { GATEWAY, CONTRACT_ADDRESS, WORLD_OF_TULIPS_ABI } from './config'
 import LoggedOutHome from './LoggedOutHome'
 import LoggedInHome from './LoggedInHome'
-
+import  './css/background.css'
 
 class App extends Component {
 
@@ -57,7 +57,7 @@ class App extends Component {
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button secondary
+                    <Button color='green' 
                         onClick={() => {
                         this.setState({appModalOpen: false})
                         }}>

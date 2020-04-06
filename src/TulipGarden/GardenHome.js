@@ -56,7 +56,7 @@ class GardenHome extends Component {
   render() {
     return <div>
     <p> Overall Number of Bulbs: {this.state.num} </p>
-    <Button onClick={this.digBulb} content='Dig for Tulip'/>
+    <Button color='brown' onClick={this.digBulb} content='Dig for Tulip'/>
     {this.state.loading ? ('Loading...') : (<TulipView {...this.props} tulips = {this.state.tulips} />)} 
     </div>
   }
