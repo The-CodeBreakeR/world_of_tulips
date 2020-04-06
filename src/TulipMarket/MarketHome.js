@@ -207,6 +207,7 @@ class MarketHome extends Component
                 colorsBuy: colorArray
              });
         }else{
+            console.log(this.state.totalTulip);
             for (var i = 0; i < this.state.totalTulip.length; i++){
                 var temp = 'rgb(' + this.state.totalTulip[i].R + ',' + this.state.totalTulip[i].G + ',' + this.state.totalTulip[i].B + ')';
                 colorArray.push(temp);
