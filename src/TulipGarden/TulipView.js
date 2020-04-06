@@ -10,6 +10,7 @@ class TulipView extends Component{
 	constructor(props){
 		super(props);
 		console.log(this.props);
+		this.buyThisTulip();
 	}
 
 	render(){
