@@ -9,17 +9,14 @@ class TulipView extends Component{
 	
 	constructor(props){
 		super(props);
-		console.log(this.props);
-		this.buyThisTulip();
 	}
 
 	render(){
-		var colors = ['rgb(254, 136, 26)', 'rgb(254, 195, 213)',  'rgb(252, 235, 3)', 'rgb(66, 179, 245)']
 		const TulipIcon = (props) => { 
 						return (
-        	<Icon fill={colors[props.i]} width='50px' height='50px'/>
-        );
-    };
+        	<Icon fill={this.props.colors[props.i]} width='50px' height='50px'/>
+        	);
+   		 };
 
 		return <div>
 		<div className="container">
