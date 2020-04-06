@@ -58,6 +58,7 @@ class BuyTulip extends Component {
       const TulipListItem = ({owner, tulipID, price,deadline,reqId,generation,stage,motherID,plantingTime,R,G,B}) => (
       
        <Card.Group>
+          <div className = "ui centered card">
           <div className = "box">
           <Card color = "olive">
             <Card.Content>
@@ -74,7 +75,7 @@ class BuyTulip extends Component {
                 deadline: {deadline}day(s) {"\n"}
                 Stage: {stage} {"\n"}
               </Card.Description>
-              <Button basic color = 'green' onClick = {() =>this.buyThisTulip(Number(reqId),price)}>
+              <Button  color = 'green' onClick = {() =>this.buyThisTulip(Number(reqId),price)}>
                 Buy This Tulip
               </Button>
               {/* <Confirm
@@ -82,8 +83,8 @@ class BuyTulip extends Component {
                 OnCancel = {this.shut}
                 OnConfirm = {() => this.closeThisRequest(Number(reqId))}>
               </Confirm> */}
-              <Button basic color = "yellow" onClick = {this.show}>
-                Show Info 
+              <Button  color = "yellow" onClick = {this.show}>
+                 Show Info 
               </Button>
             <Modal size='mini' open={isOpen} onClose={this.close}>
          		<Modal.Header>Tulip Information</Modal.Header>
@@ -112,6 +113,7 @@ class BuyTulip extends Component {
             </Card.Content>
           </Card>
           </div>
+          </div>
        </Card.Group>
       )
 
@@ -119,13 +121,17 @@ class BuyTulip extends Component {
 
     return (
             <div>
-              <h1> Buy Tulips Around The World  </h1>
+              <h1 style={{display:'flex', justifyContent:"center", padding: "20px"}}> Buy Tulips Around The World  </h1>
+              <p></p>
+              <p></p>
+              <p></p>
+              <h3 style={{display:'flex', padding: "20px"}} > Total Tulips for sale: {this.props.totalTulipBuy.length}</h3>
               <div> { this.props.totalTulipBuy.length>0 ?(
               <div className="wrapper">
                 
                 <TulipList Tulips={this.props.totalTulipBuy} />
                             </div>)
-                            :(<h2 class= "headertekst"> No Tulips For Sale Yet :(</h2>)}
+                            :(<h2 style={{display:'flex', justifyContent:"center", padding: "20px"}}> No Tulips For Sale Yet :(</h2>)}
 
                             </div>
                             </div>

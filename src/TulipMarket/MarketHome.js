@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-// import MarketList from "./MarketList"
+import MarketList from "./MarketList"
 import BuyTulip from './BuyTulip';
 import CloseRequest from './CloseRequest';
-import { Button } from 'semantic-ui-react';
 import "../css/market.css"
+import {Tab} from 'semantic-ui-react'
+
 
 
 
@@ -194,12 +195,27 @@ class MarketHome extends Component
 
     render() {
 
-        return <div>
-            <p> Sell Your Tulips
-            </p>
-            {/* <MarketList {...this.props}/> */}
+        const panes = [
+    {
+        menuItem: "Let's Buy Tulips",
+        render: () => <Tab.Pane attached = {false}>
             <BuyTulip {...this.props} totalTulipBuy = {this.state.totalTulipBuy}/>
-            <CloseRequest { ...this.props} totalTulip = {this.state.totalTulip}/>
+        </Tab.Pane>
+    },
+    {
+        menuItem: " Close my Sale Request",
+        render:() =><Tab.Pane attached = {false}>
+             <CloseRequest { ...this.props} totalTulip = {this.state.totalTulip}/>
+        </Tab.Pane>
+    }
+
+];
+
+        return <div>
+            <MarketList {...this.props}/>
+            {/* <BuyTulip {...this.props} totalTulipBuy = {this.state.totalTulipBuy}/>
+            <CloseRequest { ...this.props} totalTulip = {this.state.totalTulip}/> */}
+        <Tab menu = {{pointing: true, color: "blue", inverted:true, style: {display: "flex", justifyContent: "center"}}} panes = {panes}/>
         </div>
     }
 }

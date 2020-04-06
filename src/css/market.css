@@ -18,13 +18,13 @@ body {
 .box {
   /*background-color: red;*/
   color: #fff;
-  
-  justify-self: center;
+  justify-self: end;
+  align-self: center;
 
   
-  border-radius: 5px;
-  padding: 30px;
-  font-size: 150%;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 90%;
   background-image: -webkit-linear-gradient(left, 
   rgba(238,196,135,.5) 0%,
   rgba(243,207,154,.5) 3%,
@@ -163,9 +163,9 @@ rgba(243,207,154,.3) 100%),
   rgba(243,207,154,.3) 98%,
   rgba(243,207,154,.3) 100%);
 
-  background-color:rgba(33, 22, 0, 1);
+  background-color:rgb(21, 33, 0);
   /*box-shadow: 15px 20px rgba(90, 45, 12, .8);*/
-  box-shadow: 20px 20px 20px rgba(135, 67, 18, .8) inset, 20px 30px 20px rgba(90, 45, 12, .8);
+  box-shadow: 10px 20px 20px rgba(135, 67, 18, .8) inset, 10px 10px 20px rgba(90, 45, 12, .8);
 }
 
 .h {  
