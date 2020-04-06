@@ -58,6 +58,8 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
         address requestMaker;
     }
 
+    uint demoRandomNumber = 0; // Temporary, only for demo.
+
     uint private secondsPerBlock = 15; // Approximately in Ethereum.
 
     uint private underGroundBulbNum = 1000 * 1000; // Initial number is defined here.
@@ -229,8 +231,15 @@ contract WorldOfTulips is TulipMarket, TulipGarden, GodsPlan {
     }
 
     // TODO improve!!!
+    // Temporary changes are done for the demo
     // A random number generator function, used for testing.
     function randomGenerator() private returns (uint randomNumber) {
+        demoRandomNumber += 1;
+        uint md = 1000 * 1000 * 10 / underGroundBulbNum;
+        if(demoRandomNumber == 6) {return (256 * 256 * 26 + 256 * 136 + 254) * md;}
+        if(demoRandomNumber == 7) {return (256 * 256 * 213 + 256 * 195 + 254) * md;}
+        if(demoRandomNumber == 8) {return (256 * 256 * 2 + 256 * 254 + 243) * md;}
+        if(demoRandomNumber == 9) {return (256 * 256 * 100 + 256 * 155 + 122)* md;}
         return 0;
     }
 

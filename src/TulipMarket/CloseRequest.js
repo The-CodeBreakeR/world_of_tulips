@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Tulipimage from './images/Tulip.jpg'
 import { Grid, Card, Image,Button,Modal,Icon,Confirm } from "semantic-ui-react"
 import {ReactComponent as TulipIcon} from '../img/tulip.svg';
 
@@ -22,8 +21,8 @@ class CloseRequest extends Component {
   show = () => this.setState({ isOpen: true })
   close = () => this.setState({ isOpen: false })
 
-  open = () => this.setState({isOpenConfirm:true})
-  shut = () => this.setState({isOpenConfirm:false})
+  // open = () => this.setState({isOpenConfirm:true})
+  // shut = () => this.setState({isOpenConfirm:false})
   
 
 
@@ -37,36 +36,39 @@ class CloseRequest extends Component {
  //ask ali's help to handle confirm
 
       render() {
-      
-      var colors = ['rgb(254, 136, 26)', 'rgb(254, 195, 213)',  'rgb(252, 235, 3)', 'rgb(66, 179, 245)']
+            console.log(this.props.colors);
+
       const TulipIconGrid = (props) => { 
-            return (
-          <TulipIcon fill={colors[props.i - 1]} width='250px' height='250px'/>
-      );}
+        if (this.props.colors){
+            return (<TulipIcon fill={this.props.colors[props.i]} width='250px' height='250px'/>);
+          }else{
+            return (null);
+          }}
      
      
         
       const TulipList = (props) => (
       <Grid colums={3} divided>
-      {this.props.totalTulip.map((Tulip) => (
+      {this.props.totalTulip.map((Tulip, index) => (
         <Grid.Column width={5}>
-          <TulipListItem {...Tulip} key={Tulip.tulipID} />
+          <TulipListItem {...Tulip} key={Tulip.tulipID} index = {index} />
         </Grid.Column>
       ))}
       </Grid>
       );
 
        const {isOpen} = this.state
-       const {isOpenConfirm} = this.state
+      //  const {isOpenConfirm} = this.state
 
 
-      const TulipListItem = ({ tulipID, price,deadline,reqId,generation,stage,motherID,plantingTime,R,G,B}) => (
+      const TulipListItem = ({ tulipID, price,deadline,reqId,generation,stage,motherID,plantingTime,R,G,B,index}) => (
       
        <Card.Group>
           <div className = "ui centered card">
+          <div className = "box">
           <Card color = "olive">
             <Card.Content>
-              <TulipIconGrid i = {tulipID} />
+              <TulipIconGrid i = {index} />
               <Card.Header>
                 Tulip ID: {tulipID}
               </Card.Header>
@@ -77,7 +79,7 @@ class CloseRequest extends Component {
                 price: {price} ETH {"\n"}
                 deadline: {deadline}day(s) {"\n"}
               </Card.Description>
-              <Button basic color = 'red' onClick = {() => this.closeThisRequest(Number(reqId))}>
+              <Button color = 'red' onClick = {() => this.closeThisRequest(Number(reqId))}>
                 Close Request
               </Button>
               {/* <Confirm
@@ -85,7 +87,7 @@ class CloseRequest extends Component {
                 OnCancel = {this.shut}
                 OnConfirm = {() => this.closeThisRequest(Number(reqId))}>
               </Confirm> */}
-              <Button basic color = "yellow" onClick = {this.show}>
+              <Button color = "yellow" onClick = {this.show}>
                 Show Info 
               </Button>
             <Modal size='mini' open={isOpen} onClose={this.close}>
@@ -115,18 +117,28 @@ class CloseRequest extends Component {
             </Card.Content>
           </Card>
           </div>
+          </div>
        </Card.Group>
       )
+
+      
 
      
 
     return (
       <div>
-        <h1> CloseRequest for your Tulips </h1>
-        <div className="container-list">
+
+        <h1 style={{display:'flex', justifyContent:"center",padding: "20px"}}> CloseRequest for your Tulips </h1>
+        <div>{ this.props.totalTulip.length > 0 ?(
+        <div className="wrapper">
           {/* <p>tulips for sale: {this.state.buyReqIDs}</p> */}
           <TulipList Tulips={this.props.totalTulip} />
                       </div>
+        ) : (<h3 style = {{display:'flex',padding: "20px",justifyContent:"center"}}>
+          No Tulips sold yet. Try Selling Tulips First.
+        </h3>
+        )}
+        </div>
                       </div>
     )
   }

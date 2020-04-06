@@ -27,12 +27,11 @@ class GardenHome extends Component {
   }
 
   // Initialize the respective elements, state to indicate loading
-  state = { activeItem: 'Market', num: 0, tulips: [], tulip: 0, loading: true, gardenView: true}
+  state = { activeItem: 'Market', num: 0, tulips: [], tulipIDs: [], tulip: 0, loading: true, gardenView: true, colors: []}
 
   async getBulbNumber(){
     this.setState ({loading: true})
     var num = await this.props.worldOfTulips.methods.getUnderGroundBulbNum().call();
-    console.log(this.state.loading)
     this.setState({
       num : num,
       loading: false
@@ -46,16 +45,30 @@ class GardenHome extends Component {
     for (var i = 0; i < ownedTulipIDs.length; i++) {
         const tulip = await this.getTulip(ownedTulipIDs[i]);
         tulipArray.push(tulip);
-      }
+      };
+
     this.setState({
-          tulips: tulipArray
+          tulips: tulipArray,
+          tulipIDs: ownedTulipIDs
         });
 
     if (this.state.tulips.length > 3){
       this.setState({gardenView: false});
     }
+    this.getAllColors()
     this.setState({ loading: false });
   } 
+
+  getAllColors(){
+    var colorArray = [];
+    for (var i = 0; i < this.state.tulips.length ; i++){
+      var temp = 'rgb(' + this.state.tulips[i].R + ',' + this.state.tulips[i].G + ',' + this.state.tulips[i].B + ')';
+      colorArray.push(temp);
+    };
+    this.setState({
+      colors: colorArray
+    })
+  }
 
   async digBulb(){
     this.setState ({loading: true});
@@ -104,7 +117,7 @@ class GardenHome extends Component {
     </div>
     {this.state.loading ? (<Loader/>) : (gardenView) } 
     <div>
-    {this.state.loading ? null : (<TulipView {...this.props} tulips = {this.state.tulips}/>)} 
+    {this.state.loading ? null : (<TulipView {...this.props} tulips = {this.state.tulips} tulipIDs = {this.state.tulipIDs} colors = {this.state.colors}/>)} 
     </div>
     </div>
 

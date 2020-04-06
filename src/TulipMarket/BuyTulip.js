@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import Tulipimage from './images/Tulip.jpg'
 import { Grid, Card, Image,Button,Modal,Icon,Confirm } from "semantic-ui-react"
 import Web3 from 'web3';
-
+import {ReactComponent as TulipIcon} from '../img/tulip.svg';
 
 
 class BuyTulip extends Component {
@@ -14,7 +13,6 @@ class BuyTulip extends Component {
           isOpen:false,
           isOpenConfirm:false,
         }
-   
         this.buyThisTulip = this.buyThisTulip.bind(this)
   }
 
@@ -26,21 +24,25 @@ class BuyTulip extends Component {
   
 
   async buyThisTulip(id,price){
-    
-    const gasAmount = await this.props.worldOfTulips.methods.buyTulip(id).estimateGas({from:this.props.userAccount});
-    var TulipId = await this.props.worldOfTulips.methods.buyTulip(id, {from:this.props.userAccount, gas:gasAmount,value: Web3.utils.toWei(price,"ether") });
-    console.log("Tulip Bought" +{TulipId})
+     const gasAmount = await this.props.worldOfTulips.methods.buyTulip(id).estimateGas({from:this.props.userAccount, value:price});
+     var tulipId = await this.props.worldOfTulips.methods.buyTulip(id).send({from:this.props.userAccount, gas:gasAmount, value:price });
   }
 
  //ask ali's help to handle confirm
 
       render() {
-        
+      const TulipIconGrid = (props) => { 
+        if (this.props.colors){
+            return (<TulipIcon fill={this.props.colors[props.i]} width='250px' height='250px'/>);
+          }else{
+            return (null);
+          }}
+
       const TulipList = (props) => (
       <Grid colums={3} divided>
-      {this.props.totalTulipBuy.map((Tulip) => (
+      {this.props.totalTulipBuy.map((Tulip, index) => (
         <Grid.Column width={5}>
-          <TulipListItem {...Tulip} key={Tulip.tulipID} />
+          <TulipListItem {...Tulip} key={Tulip.tulipID} index = {index} />
         </Grid.Column>
       ))}
       </Grid>
@@ -50,13 +52,14 @@ class BuyTulip extends Component {
        const {isOpenConfirm} = this.state
 
 
-      const TulipListItem = ({owner, tulipID, price,deadline,reqId,generation,stage,motherID,plantingTime,R,G,B}) => (
+      const TulipListItem = ({owner, tulipID, price,deadline,reqId,generation,stage,motherID,plantingTime,R,G,B, index}) => (
       
        <Card.Group>
           <div className = "ui centered card">
+          <div className = "box">
           <Card color = "olive">
             <Card.Content>
-              <Image src= {Tulipimage} />
+              <TulipIconGrid i = {index} />>
               <Card.Header>
                 Tulip ID: {tulipID}
               </Card.Header>
@@ -65,11 +68,11 @@ class BuyTulip extends Component {
               <Card.Description>
                 Owner: {owner} {"\n"}
                 ReqID : {reqId} {"\n"}
-                price: {price} ETH {"\n"}
+                price: {price} wei {"\n"}
                 deadline: {deadline}day(s) {"\n"}
                 Stage: {stage} {"\n"}
               </Card.Description>
-              <Button basic color = 'green' onClick = {() =>this.buyThisTulip(Number(reqId),price)}>
+              <Button  color = 'green' onClick = {() =>this.buyThisTulip(Number(reqId),price)}>
                 Buy This Tulip
               </Button>
               {/* <Confirm
@@ -77,8 +80,8 @@ class BuyTulip extends Component {
                 OnCancel = {this.shut}
                 OnConfirm = {() => this.closeThisRequest(Number(reqId))}>
               </Confirm> */}
-              <Button basic color = "yellow" onClick = {this.show}>
-                Show Info 
+              <Button  color = "yellow" onClick = {this.show}>
+                 Show Info 
               </Button>
             <Modal  style={{ backgroundColor: "rgb(192,192,192,0.8)",'position': 'relative'}} size='mini' open={isOpen} onClose={this.close}>
          		<Modal.Header style={{ backgroundColor: "rgb(192,192,192,0.8)"}}>Tulip Information</Modal.Header>
@@ -107,6 +110,7 @@ class BuyTulip extends Component {
             </Card.Content>
           </Card>
           </div>
+          </div>
        </Card.Group>
       )
 
@@ -114,10 +118,18 @@ class BuyTulip extends Component {
 
     return (
             <div>
-              <h1> Buy Tulips Around The World  </h1>
-              <div className="container-list">
-                <p>tulips for sale: {this.state.buyReqIDs}</p>
+              <h1 style={{display:'flex', justifyContent:"center", padding: "20px"}}> Buy Tulips Around The World  </h1>
+              <p></p>
+              <p></p>
+              <p></p>
+              <h3 style={{display:'flex', padding: "20px"}} > Total Tulips for sale: {this.props.totalTulipBuy.length}</h3>
+              <div> { this.props.totalTulipBuy.length>0 ?(
+              <div className="wrapper">
+                
                 <TulipList Tulips={this.props.totalTulipBuy} />
+                            </div>)
+                            :(<h2 style={{display:'flex', justifyContent:"center", padding: "20px"}}> No Tulips For Sale Yet :(</h2>)}
+
                             </div>
                             </div>
     )

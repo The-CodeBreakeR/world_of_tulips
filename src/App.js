@@ -36,7 +36,7 @@ class App extends Component {
             //     worldOfTulips: smartContract
             // })}
         />
-        : <div > 
+        : <div >
             <LoggedInHome
                 {...this.state}
                 logOut={() => this.setState({
@@ -58,7 +58,7 @@ class App extends Component {
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions style={{ backgroundColor: "rgb(192,192,192,0.8)"}}>
-                    <Button color='green' 
+                    <Button color='green'
                         onClick={() => {
                         this.setState({appModalOpen: false})
                         }}>
