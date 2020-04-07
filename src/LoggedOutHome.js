@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import Web3 from 'web3'
 import './css/login.css'
+import Tulip from './TulipGarden/Tulip';
+import './css/background.css'
 
 class LoggedOutHome extends Component {
 
@@ -22,7 +24,9 @@ class LoggedOutHome extends Component {
     }
 
     render() {
-        return <div id="doorBox" class="door-box">
+        return ( 
+        <div class="background" style={{  width: "2000px", minHeight: "950px"}}>
+        <div id="doorBox" class="door-box" style={{ position: "absolute", top:"20%",left:"42%"}}>
             <div class="wall">
                 <div class="door-border">
                     <div class="door-frame">
@@ -31,11 +35,11 @@ class LoggedOutHome extends Component {
                             <div class="door-face-0"></div>
                             <div class="door-face-2"></div>
                             <div class="door-face-1">
-                                <div class="door-card">Welcome to the World of Tulips!
-                                    <img src={require("./img/tulip_head_colour.png")} align="middle" width="50" height="50" position="relative"/>
+                                <div class="door-card">
+                                    <img className="tulip_logo" src={require("./img/tulip_head_colour.png")} align="middle" width="50" height="50" position="relative"  />
                                 </div>
     	                        <div class="door-btn">
-                                    <Button className="door-in" color='yellow' onClick={() => this.handleClick()}>
+                                    <Button className="door-in" color='green' onClick={() => this.handleClick()}>
                                         Log In
                                     </Button>
                                 </div>
@@ -46,7 +50,8 @@ class LoggedOutHome extends Component {
                 </div>
             </div>
         </div>
-
+        </div>
+        )
     }
 }
 

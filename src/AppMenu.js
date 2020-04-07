@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Menu, Segment } from 'semantic-ui-react'
 import AppBody from './AppBody'
-
+//import './css/menu.css'
 
 class AppMenu extends Component {
     state = { activeItem: 'Market' }
@@ -12,13 +12,15 @@ class AppMenu extends Component {
         const { activeItem } = this.state
         return (
             <div>
-                <Menu attached='top' tabular>
+                <Menu inverted widths={2} attached='top' tabular>
                     <Menu.Item
+                        color='blue'
                         name='Market'
                         active={activeItem === 'Market'}
                         onClick={this.handleItemClick}
                     />
                     <Menu.Item
+                        color='green'
                         name='Garden'
                         active={activeItem === 'Garden'}
                         onClick={this.handleItemClick}
