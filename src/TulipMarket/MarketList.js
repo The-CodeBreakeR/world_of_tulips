@@ -53,7 +53,9 @@ class MarketList extends Component {
             this.setState({allOwnedTulips:allOwnedTulips});
             console.log(this.state.allOwnedTulips)
             
-            var arr = this.state.allOwnedTulips.length;
+            if (this.state.allOwnedTulips){
+              var arr = this.state.allOwnedTulips.length;
+            }
             var i;
             var options=[];
             for(i = 1; i <= arr; i++) {

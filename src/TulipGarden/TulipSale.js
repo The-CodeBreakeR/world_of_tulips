@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, Icon, Button } from 'semantic-ui-react'
 
-
 class TulipProfile extends Component{
 	
 	constructor(props){
