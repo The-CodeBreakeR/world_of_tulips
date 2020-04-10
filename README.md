@@ -1,68 +1,83 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+World of Tulips
+=================
 
-In the project directory, you can run:
 
-### `npm start`
+World of Tulips is a **fully decentralized**, autonomous application (Dapp) implemented on the Ethereum blockchain, itself open-source, that virtualizes an attractive and entertaining tulip growing community. The World offers the opportunity to grow, trade, and sell stable value tulips. The World of Tulips is based upon the core belief that the true decentralized app is without owner or manager. To this end, for full transparency, all smart contracts and front end implementation code are either published on the Ethereum blockchain or otherwise made publicly available so that participants in the World of Tulips can have the confidence that the World and their assets are secure: the existence of a central agency is not required. All tulips are recoverable by their transparent properties and transactions stored on Ethereum blockchain: the World of Tulips does not obscure the determination of any properties in private smart contracts. Furthermore, this smart contract transparency ensures that the value of tulips is also transparent: there are no ‘special’ breeds that are held in reserve by a central agency that, once released, could reduce the valuation of existing tulips. Instead, all tulips grow organically through the same mechanism from digging for bulbs to growing a tulip, to breeding new tulips. Intrinsic tulip value is determined by tulip attractiveness, as determined pseudo-randomly, its proximity to World genesis Generation 0, whether it has been bred, and its sale record at market. Sellers are able to set their own tulip price: the market will determine whether it is acceptable.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# How to Install and Run
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+In this project, Truffle development framework is used for compiling, deploying, and testing Solidity smart contracts. Documents on Truffle’s website at [https://www.trufflesuite.com/](https://www.trufflesuite.com/) provide comprehensive guidance on how to install and use it. Below, we will shortly describe the commands to install Truffle and test contracts with it:
 
-### `npm test`
+  
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+In order to install Truffle on the system, the command below is used:
 
-### `npm run build`
+  
+```
+$ npm install -g truffle
+```
+  
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+NodeJS 5.0+ is recommended for the installation of Truffle.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Then, in order to compile smart contracts, the following command is used:
 
-### `npm run eject`
+  
+```
+$ truffle compile
+```
+  
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This command will write the required JSON files to .\build\contracts.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+After we compiled the contracts, we need to deploy them to the blockchain. In order to do so, and for the purpose of testing, we use Ganache, a personal blockchain provided by the Truffle development team ([https://www.trufflesuite.com/ganache](https://www.trufflesuite.com/ganache)). Therefore, having Ganache open, we run the following command in order to deploy our smart contracts:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  
+```
+$ truffle migrate
+```
+  
 
-## Learn More
+After we run the command, we should be able to see the transaction related to contract deployment in a mined block on Ganache.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To run the tests, written to check the correctness of the contracts, the following command is used:
 
-### Code Splitting
+  
+```
+$ truffle test
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+  
 
-### Analyzing the Bundle Size
+To be able to launch the web application, we first need to install the dependencies of the project. Hence, we navigate to the root directory of the project and run the following command:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+  
+```
+$ npm install
+```
+  
 
-### Making a Progressive Web App
+This command will install all dependencies of the project in .\node_modules folder. By default, this command installs all modules listed as dependencies in package.json.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+  
 
-### Advanced Configuration
+Before we run the web application, we need to specify in .\src\config.js file, the address of the deployed smart contract, the contract ABI taken from the JSON file of the compiled contract in the build folder, and whether we use Ganache or Metamask as gateway.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+  
 
-### Deployment
+Now, to run the application in the developer mode, we run the following command:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+  
+```
+$ npm start
+```
+  
 
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+It opens [http://localhost:3000/](http://localhost:3000/) to view the application in the browser. The page will reload if any edit is made.
